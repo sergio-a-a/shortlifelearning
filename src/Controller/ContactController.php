@@ -14,9 +14,10 @@
         
         function index(){
                     if($this->request->is('post')){
-                        $test1 = $this->request->getData('email');
-                        $test3 = $this->request->getData('content');
-                        $this->sendUserEmail($test1,'Subject',$test3);
+                        $email = $this->request->getData('email');
+                        $message = $this->request->getData('content');
+                        $nom = $this->request->getData('name');
+                        $this->sendUserEmail($email,$nom,$message);
             }
     }
 }
