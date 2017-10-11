@@ -58,7 +58,7 @@
         </tr>
         <tr>
             <th scope="row"><?= __('Nom du superviseur') ?></th>
-            <td><?= h($employe->employesparent->nom) ?></td>
+            <td><?= $employe->has('employesparent') ? $this->Html->link($employe->employesparent->nom, ['controller' => 'Employes', 'action' => 'view', $employe->employesparent->id]) : '' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Date Envoi Plan Formation') ?></th>
