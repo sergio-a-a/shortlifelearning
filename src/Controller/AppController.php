@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\Mailer\Email;
 
 /**
  * Application Controller
@@ -39,18 +40,79 @@ class AppController extends Controller
      */
     public function initialize()
     {
-        parent::initialize();
+        $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'authorize' => ['Controller'], // Ajout de cette ligne
+            'loginRedirect' => [
+                'controller' => 'users',
+                'action' => 'index'
+            ],
+            'logoutRedirect' => [
+                'controller' => 'users',
+                'action' => 'login'
+            ]
+        ]);
+    }
 
+    public function isAuthorized($user)
+    {
+        // Admin peuvent accéder à chaque action
+        if (isset($user['role_id']) && $user['role_id'] == 1) {
+            return true;
+        }
+
+        // Par défaut refuser
+        return false;
+    }
+
+    
+    public function beforeFilter(Event $event)
+    {
+        $this->Auth->allow('display');
+    }
+    /*public function beforeFilter(Event $event)
+    {
+        $this->Auth->allow(['contact', 'display']);
+    }*/
+        
+        /*parent::initialize();
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'authenticate' => [
+                'Form' => [
+                    'fields' => [
+                        'username' => 'Username',
+                        'password' => 'password'
+                    ]
+                ]
+            ],
+            'loginAction' => [
+                'controller' => 'users',
+                'action' => 'login'
+            ],
+            
+            'loginRedirect' => [
+                'controller' => 'users',
+                'action' => 'index'
+            ],
+            'logoutRedirect' => [
+                'controller' => 'users',
+                'action' => 'login',
+                'home'
+            ],
+            
+            // Si l'utilisateur arrive sur une page non-autorisée, on le
+            // redirige sur la page précédente.
+            'unauthorizedRedirect' => $this->referer()
+        ]);
 
-        /*
-         * Enable the following components for recommended CakePHP security settings.
-         * see https://book.cakephp.org/3.0/en/controllers/components/security.html
-         */
-        //$this->loadComponent('Security');
-        //$this->loadComponent('Csrf');
-    }
+        // Autorise l'action display pour que notre controller de pages
+        // continue de fonctionner.
+        $this->Auth->allow(['contact', 'login']);
+        
+    }*/
+
 
     /**
      * Before render callback.
@@ -68,5 +130,19 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
+    }
+    
+     public function sendUserEmail($to,$subject,$msg)
+    {
+       $email = new Email('default');
+       $email
+            ->transport('gmail')
+            ->from(['cooolnico@gmail.com' => 'cooolnico@gmail.com'])
+            ->to($to)
+            ->subject('yo')
+            ->emailFormat('html')
+            ->viewVars(array('msg' => $msg))
+            ->send($msg);
+
     }
 }

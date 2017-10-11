@@ -189,8 +189,38 @@ return [
             'tls' => null,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],
+         'hotmail'=> [
+          'host' => 'ssl://smtp.live.com',
+          'port' => 587,
+          'username' => 'hommeraton222@hotmail.com',  //your gmail address
+          'password' => 'Awoog4Kach0w',        //your gmail password
+          'className' => 'Smtp',
+          'log' => true,
+          'context' => [
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            ]
+          ]
+        ],
+         'gmail'=> [
+          'host' => 'ssl://smtp.gmail.com',
+          'port' => 465,
+          'username' => 'cooolnico@gmail.com',  //your gmail address
+          'password' => '1poultra',        //your gmail password
+          'secure' => 'ssl',
+          'className' => 'Smtp',
+          'log' => true,
+          'context' => [
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            ]
+          ]
+        ],
     ],
-
     /**
      * Email delivery profiles
      *
@@ -230,8 +260,8 @@ return [
              */
             //'port' => 'non_standard_port_number',
             'username' => 'root',
-            'password' => 'mysql',
-            'database' => 'shortlifelearning',
+            'password' => '',
+            'database' => 'longlifelearning',
             'encoding' => 'utf8',
             'timezone' => 'UTC',
             'flags' => [],
