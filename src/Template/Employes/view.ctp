@@ -30,7 +30,7 @@
         </tr>
         <tr>
             <th scope="row"><?= __('Civilite') ?></th>
-            <td><?= $employe->has('civilite') ? $this->Html->link($employe->civilite->id, ['controller' => 'Civilites', 'action' => 'view', $employe->civilite->id]) : '' ?></td>
+            <td><?= $employe->has('civilite') ? $this->Html->link($employe->civilite->nom, ['controller' => 'Civilites', 'action' => 'view', $employe->civilite->id]) : '' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Cellulaire') ?></th>
@@ -42,27 +42,23 @@
         </tr>
         <tr>
             <th scope="row"><?= __('Langue') ?></th>
-            <td><?= $employe->has('langue') ? $this->Html->link($employe->langue->id, ['controller' => 'Langues', 'action' => 'view', $employe->langue->id]) : '' ?></td>
+            <td><?= $employe->has('langue') ? $this->Html->link($employe->langue->nom, ['controller' => 'Langues', 'action' => 'view', $employe->langue->id]) : '' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Immeuble') ?></th>
-            <td><?= $employe->has('immeuble') ? $this->Html->link($employe->immeuble->id, ['controller' => 'Immeubles', 'action' => 'view', $employe->immeuble->id]) : '' ?></td>
+            <td><?= $employe->has('immeuble') ? $this->Html->link($employe->immeuble->address, ['controller' => 'Immeubles', 'action' => 'view', $employe->immeuble->id]) : '' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Poste') ?></th>
-            <td><?= $employe->has('poste') ? $this->Html->link($employe->poste->id, ['controller' => 'Postes', 'action' => 'view', $employe->poste->id]) : '' ?></td>
+            <td><?= $employe->has('poste') ? $this->Html->link($employe->poste->titre, ['controller' => 'Postes', 'action' => 'view', $employe->poste->id]) : '' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Informations Supplementaires') ?></th>
             <td><?= h($employe->informations_supplementaires) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($employe->id) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Employe Id') ?></th>
-            <td><?= $this->Number->format($employe->employe_id) ?></td>
+            <th scope="row"><?= __('Nom du superviseur') ?></th>
+            <td><?= h($employe->employesparent->nom) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Date Envoi Plan Formation') ?></th>

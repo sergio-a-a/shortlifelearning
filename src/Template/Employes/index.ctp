@@ -22,7 +22,7 @@
                 <th scope="col"><?= $this->Paginator->sort('courriel') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('langue_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('immeuble_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('employe_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Superviseur') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('poste_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
