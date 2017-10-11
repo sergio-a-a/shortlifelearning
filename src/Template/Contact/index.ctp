@@ -4,17 +4,17 @@
 <?php   echo $this->Form->create('raton');?>
    <tr id="trcontact">
         <td>Votre nom : </td>
-        <td><?php echo $this->Form->input('name');?></td>
+        <td><?php echo $this->Form->control('name', ['required' => true]);?></td>
    </tr>
 
    <tr id="trcontact">
         <td>Votre email : </td>
-        <td><?php echo $this->Form->input('email');?></td>
+        <td><?php echo $this->Form->control('email', ['required' => true]);?></td>
    </tr>
 
    <tr id="trcontact">
         <td>Votre message : </td>
-        <td><?php echo $this->Form->input('content', array('label' => "", "type"=>"textarea"));?></td>
+        <td><?php echo $this->Form->control('content',['required' => true] , array('label' => "", "type"=>"textarea"));?></td>
    </tr>
 
    <tr id="trcontact">
