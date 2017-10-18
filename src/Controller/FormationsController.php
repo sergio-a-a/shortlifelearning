@@ -21,7 +21,18 @@ class FormationsController extends AppController
     public function index()
     {
         $formations = $this->paginate($this->Formations);
-
+        if ($this->request->is('post')) {
+            
+            $formations = $this->paginate($this->Formations->find()->where(["OR" => [
+                "Formations.titre LIKE" => $this->request->data['search'],
+                "Formations.numero LIKE" => $this->request->data['search'],
+                "Formations.categorie LIKE" => $this->request->data['search']
+                    ]]));
+        }else{
+            $formations = $this->paginate($this->Formations);
+        }
+        
+        
         $this->set(compact('formations'));
         $this->set('_serialize', ['formations']);
     }
