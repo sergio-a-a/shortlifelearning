@@ -71,10 +71,9 @@
     </table>
     <div class="related">
         <h4><?= __('Related Employes') ?></h4>
-        <?php if (!empty($employe->employes)): ?>
+        <?php if (!empty($employe->employesparent)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Numero') ?></th>
                 <th scope="col"><?= __('Nom') ?></th>
                 <th scope="col"><?= __('Prenom') ?></th>
@@ -90,9 +89,8 @@
                 <th scope="col"><?= __('Informations Supplementaires') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($employe->employes as $employes): ?>
+            <?php foreach ($employe->employesparent as $employes): ?>
             <tr>
-                <td><?= h($employes->id) ?></td>
                 <td><?= h($employes->numero) ?></td>
                 <td><?= h($employes->nom) ?></td>
                 <td><?= h($employes->prenom) ?></td>
