@@ -9,13 +9,17 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $numero
  * @property string $Titre
- * @property string $Categorie
- * @property string $Frequence
- * @property string $Debut_rappel
- * @property string $Modalite
+ * @property int $categorie_id
+ * @property int $frequence_id
+ * @property int $Debut_rappel_id
+ * @property int $modalite_id
  * @property float $Duree
  * @property string $Remarques
  *
+ * @property \App\Model\Entity\Category $category
+ * @property \App\Model\Entity\Frequence $frequence
+ * @property \App\Model\Entity\DebutRappel $debut_rappel
+ * @property \App\Model\Entity\Modalite $modalite
  * @property \App\Model\Entity\FormationsCompletee[] $formations_completees
  */
 class Formation extends Entity

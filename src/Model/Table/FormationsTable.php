@@ -9,6 +9,10 @@ use Cake\Validation\Validator;
 /**
  * Formations Model
  *
+ * @property \App\Model\Table\CategoriesTable|\Cake\ORM\Association\BelongsTo $Categories
+ * @property \App\Model\Table\FrequencesTable|\Cake\ORM\Association\BelongsTo $Frequences
+ * @property \App\Model\Table\DebutRappelsTable|\Cake\ORM\Association\BelongsTo $DebutRappels
+ * @property |\Cake\ORM\Association\BelongsTo $Modalites
  * @property \App\Model\Table\FormationsCompleteesTable|\Cake\ORM\Association\HasMany $FormationsCompletees
  *
  * @method \App\Model\Entity\Formation get($primaryKey, $options = [])
@@ -36,6 +40,22 @@ class FormationsTable extends Table
         $this->setDisplayField('Titre');
         $this->setPrimaryKey('id');
 
+        $this->belongsTo('Categories', [
+            'foreignKey' => 'categorie_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('Frequences', [
+            'foreignKey' => 'frequence_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('DebutRappels', [
+            'foreignKey' => 'Debut_rappel_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('Modalites', [
+            'foreignKey' => 'modalite_id',
+            'joinType' => 'INNER'
+        ]);
         $this->hasMany('FormationsCompletees', [
             'foreignKey' => 'formation_id'
         ]);
@@ -64,26 +84,6 @@ class FormationsTable extends Table
             ->notEmpty('Titre');
 
         $validator
-            ->scalar('Categorie')
-            ->requirePresence('Categorie', 'create')
-            ->notEmpty('Categorie');
-
-        $validator
-            ->scalar('Frequence')
-            ->requirePresence('Frequence', 'create')
-            ->notEmpty('Frequence');
-
-        $validator
-            ->scalar('Debut_rappel')
-            ->requirePresence('Debut_rappel', 'create')
-            ->notEmpty('Debut_rappel');
-
-        $validator
-            ->scalar('Modalite')
-            ->requirePresence('Modalite', 'create')
-            ->notEmpty('Modalite');
-
-        $validator
             ->decimal('Duree')
             ->requirePresence('Duree', 'create')
             ->notEmpty('Duree');
@@ -93,5 +93,22 @@ class FormationsTable extends Table
             ->allowEmpty('Remarques');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['categorie_id'], 'Categories'));
+        $rules->add($rules->existsIn(['frequence_id'], 'Frequences'));
+        $rules->add($rules->existsIn(['Debut_rappel_id'], 'DebutRappels'));
+        $rules->add($rules->existsIn(['modalite_id'], 'Modalites'));
+
+        return $rules;
     }
 }

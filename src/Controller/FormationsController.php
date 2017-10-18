@@ -13,6 +13,21 @@ use App\Controller\AppController;
 class FormationsController extends AppController
 {
 
+    
+    public function isAuthorized($user)
+    {
+        
+       // Le coordonateur peut l'éditer et le supprimer et voir
+       if (in_array($this->request->getParam('action'), ['edit', 'delete', 'index', 'view'])) {
+            if ($user['role_id'] == 2) {
+                return true;
+            }
+        }
+
+        return parent::isAuthorized($user);
+    }
+    
+    
     /**
      * Index method
      *
@@ -20,19 +35,11 @@ class FormationsController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+            'contain' => ['Categories', 'Frequences', 'DebutRappels', 'Modalites']
+        ];
         $formations = $this->paginate($this->Formations);
-        if ($this->request->is('post')) {
-            
-            $formations = $this->paginate($this->Formations->find()->where(["OR" => [
-                "Formations.titre LIKE" => $this->request->data['search'],
-                "Formations.numero LIKE" => $this->request->data['search'],
-                "Formations.categorie LIKE" => $this->request->data['search']
-                    ]]));
-        }else{
-            $formations = $this->paginate($this->Formations);
-        }
-        
-        
+
         $this->set(compact('formations'));
         $this->set('_serialize', ['formations']);
     }
@@ -47,7 +54,7 @@ class FormationsController extends AppController
     public function view($id = null)
     {
         $formation = $this->Formations->get($id, [
-            'contain' => ['FormationsCompletees']
+            'contain' => ['Categories', 'Frequences', 'DebutRappels', 'Modalites', 'FormationsCompletees']
         ]);
 
         $this->set('formation', $formation);
@@ -64,7 +71,6 @@ class FormationsController extends AppController
         $formation = $this->Formations->newEntity();
         if ($this->request->is('post')) {
             $formation = $this->Formations->patchEntity($formation, $this->request->getData());
-            debug($formation);
             if ($this->Formations->save($formation)) {
                 $this->Flash->success(__('The formation has been saved.'));
 
@@ -72,7 +78,11 @@ class FormationsController extends AppController
             }
             $this->Flash->error(__('The formation could not be saved. Please, try again.'));
         }
-        $this->set(compact('formation'));
+        $categories = $this->Formations->Categories->find('list', ['limit' => 200]);
+        $frequences = $this->Formations->Frequences->find('list', ['limit' => 200]);
+        $debutRappels = $this->Formations->DebutRappels->find('list', ['limit' => 200]);
+        $modalites = $this->Formations->Modalites->find('list', ['limit' => 200]);
+        $this->set(compact('formation', 'categories', 'frequences', 'debutRappels', 'modalites'));
         $this->set('_serialize', ['formation']);
     }
 
@@ -88,7 +98,7 @@ class FormationsController extends AppController
         $formation = $this->Formations->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'], ['type' => 'post'])) {
+        if ($this->request->is(['patch', 'post', 'put'])) {
             $formation = $this->Formations->patchEntity($formation, $this->request->getData());
             if ($this->Formations->save($formation)) {
                 $this->Flash->success(__('The formation has been saved.'));
@@ -97,7 +107,11 @@ class FormationsController extends AppController
             }
             $this->Flash->error(__('The formation could not be saved. Please, try again.'));
         }
-        $this->set(compact('formation'));
+        $categories = $this->Formations->Categories->find('list', ['limit' => 200]);
+        $frequences = $this->Formations->Frequences->find('list', ['limit' => 200]);
+        $debutRappels = $this->Formations->DebutRappels->find('list', ['limit' => 200]);
+        $modalites = $this->Formations->Modalites->find('list', ['limit' => 200]);
+        $this->set(compact('formation', 'categories', 'frequences', 'debutRappels', 'modalites'));
         $this->set('_serialize', ['formation']);
     }
 
