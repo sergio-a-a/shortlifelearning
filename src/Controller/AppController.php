@@ -132,17 +132,29 @@ class AppController extends Controller
         }
     }
     
-     public function sendUserEmail($from,$nom,$msg)
+     public function sendUserEmail($from,$msg,$nom)
     {
        $email = new Email('default');
        $email
             ->transport('gmail')
             ->from(['cooolnico@gmail.com' => 'cooolnico@gmail.com'])
-            ->to('cooolnico@gmail.com')
+            ->to($to)
             ->subject("Message de ". $from ." de notre page")
             ->emailFormat('html')
             ->viewVars(array('msg' => $msg))
             ->send($nom." vous demande <br><br>".$msg.".");
+    }
+    public function SendUserPlan($to)
+    {
+       $email = new Email('default');
+       $email
+            ->transport('gmail')
+            ->from(['cooolnico@gmail.com' => 'cooolnico@gmail.com'])
+            ->to($to)
+            ->subject("plan de formation")
+            ->emailFormat('html')
+            ->send("Voici votre plan de formation en piece jointe");
 
     }
+    
 }

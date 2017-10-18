@@ -102,7 +102,7 @@ class EmployesTable extends Table
 
         $validator
             ->scalar('courriel')
-            ->allowEmpty('courriel');
+            ->notEmpty('courriel');
 
         $validator
             ->boolean('actif')
