@@ -40,6 +40,7 @@ class AppController extends Controller
      */
     public function initialize()
     {
+        $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Auth', [
             'authorize' => ['Controller'], // Ajout de cette ligne

@@ -215,3 +215,9 @@ Type::build('timestamp')
 if (Configure::read('debug')) {
     Plugin::load('DebugKit', ['bootstrap' => true]);
 }
+
+/*
+ * Ajout du plugin CakePdf
+ */
+Plugin::load('CakePdf', ['bootstrap' => true]);
+

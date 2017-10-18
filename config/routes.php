@@ -80,3 +80,7 @@ Router::scope('/', function (RouteBuilder $routes) {
  * how to customize the loading of plugin routes.
  */
 Plugin::routes();
+Router::scope('/', function (\Cake\Routing\RouteBuilder $routes) {
+    $routes->addExtensions(['pdf']);
+    // ...
+});
