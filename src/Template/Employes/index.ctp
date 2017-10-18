@@ -10,8 +10,14 @@
         <li><?= $this->Html->link(__('New Employe'), ['action' => 'add']) ?></li>
     </ul>
 </nav>
+
 <div class="employes index large-9 medium-8 columns content">
     <h3><?= __('Employes') ?></h3>
+    <form action="" method="post">
+        <label>Search</label>
+        <input type="text" name="search"/>
+        <button type="submit">Search</button>
+    </form>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>

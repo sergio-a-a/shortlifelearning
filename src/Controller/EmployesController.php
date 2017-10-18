@@ -20,10 +20,21 @@ class EmployesController extends AppController
      */
     public function index()
     {
+        
         $this->paginate = [
-            'contain' => ['Civilites', 'Langues', 'Immeubles', 'Postes', 'Employesparent']
+        'contain' => ['Civilites', 'Langues', 'Immeubles', 'Postes', 'Employesparent']
         ];
-        $employes = $this->paginate($this->Employes);
+        
+        if ($this->request->is('post')) {
+            
+            $employes = $this->paginate($this->Employes->find()->where(["OR" => [
+                "Employes.nom LIKE" => $this->request->data['search'],
+                "Employes.prenom LIKE" => $this->request->data['search'],
+                "Employes.numero LIKE" => $this->request->data['search']
+                    ]]));
+        }else{
+            $employes = $this->paginate($this->Employes);
+        }
 
         $this->set(compact('employes'));
         $this->set('_serialize', ['employes']);
@@ -38,6 +49,7 @@ class EmployesController extends AppController
      */
     public function view($id = null)
     {
+        
         $employe = $this->Employes->get($id, [
             'contain' => ['Civilites', 'Langues', 'Immeubles', 'Postes', 'Employesparent']
         ]);
