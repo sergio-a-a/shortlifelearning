@@ -29,12 +29,13 @@ class FormationsTableTest extends TestCase
         'app.frequences',
         'app.debut_rappels',
         'app.modalites',
-        'app.formations_completees',
+        'app.statuss',
         'app.employes',
         'app.civilites',
         'app.langues',
         'app.immeubles',
-        'app.postes'
+        'app.postes',
+        'app.employes_formations'
     ];
 
     /**

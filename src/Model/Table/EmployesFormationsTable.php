@@ -7,20 +7,20 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * FormationsCompletees Model
+ * EmployesFormations Model
  *
  * @property \App\Model\Table\EmployesTable|\Cake\ORM\Association\BelongsTo $Employes
  * @property \App\Model\Table\FormationsTable|\Cake\ORM\Association\BelongsTo $Formations
  *
- * @method \App\Model\Entity\FormationsCompletee get($primaryKey, $options = [])
- * @method \App\Model\Entity\FormationsCompletee newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\FormationsCompletee[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\FormationsCompletee|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\FormationsCompletee patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\FormationsCompletee[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\FormationsCompletee findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\EmployesFormation get($primaryKey, $options = [])
+ * @method \App\Model\Entity\EmployesFormation newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\EmployesFormation[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\EmployesFormation|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\EmployesFormation patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\EmployesFormation[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\EmployesFormation findOrCreate($search, callable $callback = null, $options = [])
  */
-class FormationsCompleteesTable extends Table
+class EmployesFormationsTable extends Table
 {
 
     /**
@@ -33,7 +33,7 @@ class FormationsCompleteesTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('formations_completees');
+        $this->setTable('employes_formations');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
@@ -60,12 +60,8 @@ class FormationsCompleteesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->dateTime('date')
-            ->allowEmpty('date');
-
-        $validator
-            ->scalar('Remarque')
-            ->allowEmpty('Remarque');
+            ->dateTime('done')
+            ->allowEmpty('done');
 
         return $validator;
     }

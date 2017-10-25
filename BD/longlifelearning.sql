@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  mer. 18 oct. 2017 à 23:09
+-- Généré le :  mer. 25 oct. 2017 à 23:14
 -- Version du serveur :  5.7.17
 -- Version de PHP :  5.6.30
 
@@ -121,9 +121,30 @@ CREATE TABLE `employes` (
 --
 
 INSERT INTO `employes` (`id`, `numero`, `nom`, `prenom`, `civilite_id`, `cellulaire`, `courriel`, `langue_id`, `immeuble_id`, `employe_id`, `poste_id`, `actif`, `date_envoi_plan_formation`, `informations_supplementaires`) VALUES
-(3, 'SSS123SSSA', 'Nom', 'Prenom', 2, '5142221111', 'sergio@gmail.com', 2, 2, NULL, 2, 0, NULL, 'no info'),
-(7, 'ASDDFGHJKL', 'Test', 'Teeest', 1, '4152122112', 'tesst@gmail.com', 1, 1, 3, 1, 0, '2013-12-14', ''),
-(9, 'KACHOW', 'Sergio', 'Amaya', 2, '2123122222', 'tessst@gmail.com', 2, 2, 7, 7, 0, NULL, '');
+(16, 'qdfasdf', 'sdafadsf', 'sdfasdfas', 1, '', 'cooolnico@gmail.com', 1, 1, 17, 1, 1, NULL, ''),
+(17, '123456879', 'nicholas', 'chartier', 1, '', 'cooolnico@hotmail.com', 1, 1, 16, 1, 1, NULL, ''),
+(18, 'sfsdafasdf', 'sergio', 'xyz', 1, '', 'lel@hotmail.com', 1, 1, 16, 1, 1, NULL, '');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `employes_formations`
+--
+
+CREATE TABLE `employes_formations` (
+  `id` int(11) NOT NULL,
+  `employe_id` int(11) NOT NULL,
+  `formation_id` int(11) NOT NULL,
+  `done` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
+
+--
+-- Déchargement des données de la table `employes_formations`
+--
+
+INSERT INTO `employes_formations` (`id`, `employe_id`, `formation_id`, `done`) VALUES
+(12, 16, 21, NULL),
+(13, 16, 22, NULL);
 
 -- --------------------------------------------------------
 
@@ -140,30 +161,17 @@ CREATE TABLE `formations` (
   `Debut_rappel_id` int(11) NOT NULL,
   `modalite_id` int(11) NOT NULL,
   `Duree` decimal(10,2) NOT NULL,
-  `Remarques` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `Remarques` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `satus_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `formations`
 --
 
-INSERT INTO `formations` (`id`, `numero`, `Titre`, `categorie_id`, `frequence_id`, `Debut_rappel_id`, `modalite_id`, `Duree`, `Remarques`) VALUES
-(18, '45', '54', 4, 0, 0, 0, '0.01', '45'),
-(20, 'AWOOGA', 'Kachow', 3, 8, 6, 3, '456.00', 'oui');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `formations_completees`
---
-
-CREATE TABLE `formations_completees` (
-  `id` int(11) NOT NULL,
-  `employe_id` int(11) NOT NULL,
-  `formation_id` int(11) NOT NULL,
-  `date` datetime DEFAULT NULL,
-  `Remarque` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+INSERT INTO `formations` (`id`, `numero`, `Titre`, `categorie_id`, `frequence_id`, `Debut_rappel_id`, `modalite_id`, `Duree`, `Remarques`, `satus_id`) VALUES
+(21, '123456789', 'Windows', 4, 1, 1, 1, '5.00', '', 1),
+(22, '123456788', 'Linux', 1, 1, 1, 3, '10.00', '', 1);
 
 -- --------------------------------------------------------
 
@@ -255,20 +263,6 @@ INSERT INTO `modalites` (`id`, `nom`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `piece_jointe`
---
-
-CREATE TABLE `piece_jointe` (
-  `id` int(11) NOT NULL,
-  `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `date_ajout` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `remarques` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `id_formation` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `postes`
 --
 
@@ -312,6 +306,25 @@ CREATE TABLE `roles` (
 INSERT INTO `roles` (`id`, `role`) VALUES
 (1, 'Admin'),
 (2, 'Coordonateur');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `statuss`
+--
+
+CREATE TABLE `statuss` (
+  `id` int(11) NOT NULL,
+  `status` varchar(30) CHARACTER SET latin1 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `statuss`
+--
+
+INSERT INTO `statuss` (`id`, `status`) VALUES
+(1, 'Obligatoire'),
+(2, 'Recommandé');
 
 -- --------------------------------------------------------
 
@@ -369,16 +382,19 @@ ALTER TABLE `employes`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `employes_formations`
+--
+ALTER TABLE `employes_formations`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `employes_formations_ibfk_1` (`employe_id`),
+  ADD KEY `employes_formations_ibfk_2` (`formation_id`);
+
+--
 -- Index pour la table `formations`
 --
 ALTER TABLE `formations`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `formations_completees`
---
-ALTER TABLE `formations_completees`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `satus_id` (`satus_id`);
 
 --
 -- Index pour la table `frequences`
@@ -407,13 +423,6 @@ ALTER TABLE `modalites`
   ADD UNIQUE KEY `nom` (`nom`);
 
 --
--- Index pour la table `piece_jointe`
---
-ALTER TABLE `piece_jointe`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_formation` (`id_formation`);
-
---
 -- Index pour la table `postes`
 --
 ALTER TABLE `postes`
@@ -425,6 +434,12 @@ ALTER TABLE `postes`
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `ID` (`id`);
+
+--
+-- Index pour la table `statuss`
+--
+ALTER TABLE `statuss`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `users`
@@ -452,17 +467,17 @@ ALTER TABLE `civilites`
 -- AUTO_INCREMENT pour la table `employes`
 --
 ALTER TABLE `employes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+--
+-- AUTO_INCREMENT pour la table `employes_formations`
+--
+ALTER TABLE `employes_formations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT pour la table `formations`
 --
 ALTER TABLE `formations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
---
--- AUTO_INCREMENT pour la table `formations_completees`
---
-ALTER TABLE `formations_completees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT pour la table `frequences`
 --
@@ -484,20 +499,37 @@ ALTER TABLE `langues`
 ALTER TABLE `modalites`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT pour la table `piece_jointe`
---
-ALTER TABLE `piece_jointe`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT pour la table `postes`
 --
 ALTER TABLE `postes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
+-- AUTO_INCREMENT pour la table `statuss`
+--
+ALTER TABLE `statuss`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `employes_formations`
+--
+ALTER TABLE `employes_formations`
+  ADD CONSTRAINT `employes_formations_ibfk_1` FOREIGN KEY (`employe_id`) REFERENCES `employes` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `employes_formations_ibfk_2` FOREIGN KEY (`formation_id`) REFERENCES `formations` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `formations`
+--
+ALTER TABLE `formations`
+  ADD CONSTRAINT `formations_ibfk_1` FOREIGN KEY (`satus_id`) REFERENCES `statuss` (`id`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

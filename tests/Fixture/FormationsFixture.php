@@ -26,11 +26,16 @@ class FormationsFixture extends TestFixture
         'modalite_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'Duree' => ['type' => 'decimal', 'length' => 10, 'precision' => 2, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => ''],
         'Remarques' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8_unicode_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'satus_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        '_indexes' => [
+            'satus_id' => ['type' => 'index', 'columns' => ['satus_id'], 'length' => []],
+        ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
+            'formations_ibfk_1' => ['type' => 'foreign', 'columns' => ['satus_id'], 'references' => ['statuss', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
-            'engine' => 'MyISAM',
+            'engine' => 'InnoDB',
             'collation' => 'utf8_unicode_ci'
         ],
     ];
@@ -51,7 +56,8 @@ class FormationsFixture extends TestFixture
             'Debut_rappel_id' => 1,
             'modalite_id' => 1,
             'Duree' => 1.5,
-            'Remarques' => 'Lorem ipsum dolor sit amet'
+            'Remarques' => 'Lorem ipsum dolor sit amet',
+            'satus_id' => 1
         ],
     ];
 }

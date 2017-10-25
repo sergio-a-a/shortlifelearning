@@ -15,12 +15,14 @@ use Cake\ORM\Entity;
  * @property int $modalite_id
  * @property float $Duree
  * @property string $Remarques
+ * @property int $satus_id
  *
  * @property \App\Model\Entity\Category $category
  * @property \App\Model\Entity\Frequence $frequence
  * @property \App\Model\Entity\DebutRappel $debut_rappel
  * @property \App\Model\Entity\Modalite $modalite
- * @property \App\Model\Entity\FormationsCompletee[] $formations_completees
+ * @property \App\Model\Entity\Status $status
+ * @property \App\Model\Entity\Employe[] $employes
  */
 class Formation extends Entity
 {
@@ -35,7 +37,20 @@ class Formation extends Entity
      * @var array
      */
     protected $_accessible = [
-        '*' => true,
-        'id' => false
+        'numero' => true,
+        'Titre' => true,
+        'categorie_id' => true,
+        'frequence_id' => true,
+        'Debut_rappel_id' => true,
+        'modalite_id' => true,
+        'Duree' => true,
+        'Remarques' => true,
+        'satus_id' => true,
+        'category' => true,
+        'frequence' => true,
+        'debut_rappel' => true,
+        'modalite' => true,
+        'status' => true,
+        'employes' => true
     ];
 }

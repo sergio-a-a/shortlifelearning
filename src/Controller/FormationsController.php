@@ -13,21 +13,6 @@ use App\Controller\AppController;
 class FormationsController extends AppController
 {
 
-    
-    public function isAuthorized($user)
-    {
-        
-       // Le coordonateur peut l'éditer et le supprimer et voir
-       if (in_array($this->request->getParam('action'), ['edit', 'delete', 'index', 'view'])) {
-            if ($user['role_id'] == 2) {
-                return true;
-            }
-        }
-
-        return parent::isAuthorized($user);
-    }
-    
-    
     /**
      * Index method
      *
@@ -36,7 +21,7 @@ class FormationsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Categories', 'Frequences', 'DebutRappels', 'Modalites']
+            'contain' => ['Categories', 'Frequences', 'DebutRappels', 'Modalites', 'Statuss']
         ];
         $formations = $this->paginate($this->Formations);
 
@@ -54,7 +39,7 @@ class FormationsController extends AppController
     public function view($id = null)
     {
         $formation = $this->Formations->get($id, [
-            'contain' => ['Categories', 'Frequences', 'DebutRappels', 'Modalites', 'FormationsCompletees']
+            'contain' => ['Categories', 'Frequences', 'DebutRappels', 'Modalites', 'Statuss', 'Employes']
         ]);
 
         $this->set('formation', $formation);
@@ -79,11 +64,12 @@ class FormationsController extends AppController
             $this->Flash->error(__('The formation could not be saved. Please, try again.'));
         }
         $categories = $this->Formations->Categories->find('list', ['limit' => 200]);
-        $employes = $this->Formations->Employes->find('list', ['limit' => 200]);
         $frequences = $this->Formations->Frequences->find('list', ['limit' => 200]);
         $debutRappels = $this->Formations->DebutRappels->find('list', ['limit' => 200]);
         $modalites = $this->Formations->Modalites->find('list', ['limit' => 200]);
-        $this->set(compact('formation', 'categories', 'frequences', 'debutRappels', 'modalites', 'employes'));
+        $statuss = $this->Formations->Statuss->find('list', ['limit' => 200]);
+        $employes = $this->Formations->Employes->find('list', ['limit' => 200]);
+        $this->set(compact('formation', 'categories', 'frequences', 'debutRappels', 'modalites', 'statuss', 'employes'));
         $this->set('_serialize', ['formation']);
     }
 
@@ -97,7 +83,7 @@ class FormationsController extends AppController
     public function edit($id = null)
     {
         $formation = $this->Formations->get($id, [
-            'contain' => []
+            'contain' => ['Employes']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $formation = $this->Formations->patchEntity($formation, $this->request->getData());
@@ -109,11 +95,12 @@ class FormationsController extends AppController
             $this->Flash->error(__('The formation could not be saved. Please, try again.'));
         }
         $categories = $this->Formations->Categories->find('list', ['limit' => 200]);
-        $employes = $this->Formations->Employes->find('list', ['limit' => 200]);
         $frequences = $this->Formations->Frequences->find('list', ['limit' => 200]);
         $debutRappels = $this->Formations->DebutRappels->find('list', ['limit' => 200]);
         $modalites = $this->Formations->Modalites->find('list', ['limit' => 200]);
-        $this->set(compact('formation', 'categories', 'frequences', 'debutRappels', 'modalites', 'employes'));
+        $statuss = $this->Formations->Statuss->find('list', ['limit' => 200]);
+        $employes = $this->Formations->Employes->find('list', ['limit' => 200]);
+        $this->set(compact('formation', 'categories', 'frequences', 'debutRappels', 'modalites', 'statuss', 'employes'));
         $this->set('_serialize', ['formation']);
     }
 

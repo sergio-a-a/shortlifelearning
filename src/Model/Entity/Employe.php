@@ -26,6 +26,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\Immeuble $immeuble
  * @property \App\Model\Entity\Employe[] $employes
  * @property \App\Model\Entity\Poste $poste
+ * @property \App\Model\Entity\Formation[] $formations
  */
 class Employe extends Entity
 {
@@ -57,6 +58,7 @@ class Employe extends Entity
         'langue' => true,
         'immeuble' => true,
         'employes' => true,
-        'poste' => true
+        'poste' => true,
+        'formations' => true
     ];
 }

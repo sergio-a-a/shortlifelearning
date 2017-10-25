@@ -4,18 +4,12 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * FormationsCompletee Entity
+ * Status Entity
  *
  * @property int $id
- * @property int $employe_id
- * @property int $formation_id
- * @property \Cake\I18n\FrozenTime $date
- * @property string $Remarque
- *
- * @property \App\Model\Entity\Employe $employe
- * @property \App\Model\Entity\Formation $formation
+ * @property string $status
  */
-class FormationsCompletee extends Entity
+class Status extends Entity
 {
 
     /**
@@ -28,7 +22,6 @@ class FormationsCompletee extends Entity
      * @var array
      */
     protected $_accessible = [
-        '*' => true,
-        'id' => false
+        'status' => true
     ];
 }

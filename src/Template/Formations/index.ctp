@@ -1,8 +1,8 @@
 <?php
 /**
-  * @var \App\View\AppView $this
-  * @var \App\Model\Entity\Formation[]|\Cake\Collection\CollectionInterface $formations
-  */
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\Formation[]|\Cake\Collection\CollectionInterface $formations
+ */
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
@@ -12,10 +12,14 @@
         <li><?= $this->Html->link(__('New Category'), ['controller' => 'Categories', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Frequences'), ['controller' => 'Frequences', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Frequence'), ['controller' => 'Frequences', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Debut Rappels'), ['controller' => 'DebutRappels', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Debut Rappel'), ['controller' => 'DebutRappels', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Modalites'), ['controller' => 'Modalites', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Modalite'), ['controller' => 'Modalites', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Formations Completees'), ['controller' => 'FormationsCompletees', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Formations Completee'), ['controller' => 'FormationsCompletees', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Statuss'), ['controller' => 'Statuss', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Status'), ['controller' => 'Statuss', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Employes'), ['controller' => 'Employes', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Employe'), ['controller' => 'Employes', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="formations index large-9 medium-8 columns content">
@@ -32,6 +36,7 @@
                 <th scope="col"><?= $this->Paginator->sort('modalite_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Duree') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Remarques') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('satus_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -47,6 +52,7 @@
                 <td><?= $formation->has('modalite') ? $this->Html->link($formation->modalite->nom, ['controller' => 'Modalites', 'action' => 'view', $formation->modalite->id]) : '' ?></td>
                 <td><?= $this->Number->format($formation->Duree) ?></td>
                 <td><?= h($formation->Remarques) ?></td>
+                <td><?= $formation->has('status') ? $this->Html->link($formation->status->id, ['controller' => 'Statuss', 'action' => 'view', $formation->status->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $formation->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $formation->id]) ?>

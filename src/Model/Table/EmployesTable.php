@@ -15,6 +15,7 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\EmployesTable|\Cake\ORM\Association\BelongsTo $Employes
  * @property \App\Model\Table\PostesTable|\Cake\ORM\Association\BelongsTo $Postes
  * @property \App\Model\Table\EmployesTable|\Cake\ORM\Association\HasMany $Employes
+ * @property \App\Model\Table\FormationsTable|\Cake\ORM\Association\BelongsToMany $Formations
  *
  * @method \App\Model\Entity\Employe get($primaryKey, $options = [])
  * @method \App\Model\Entity\Employe newEntity($data = null, array $options = [])
@@ -53,23 +54,21 @@ class EmployesTable extends Table
             'foreignKey' => 'immeuble_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('Employesparent', [
-            'className' => 'Employes',
-            'foreignKey' => 'employe_id',
+        $this->belongsTo('Employes', [
+            'foreignKey' => 'employe_id'
         ]);
         $this->belongsTo('Postes', [
             'foreignKey' => 'poste_id',
             'joinType' => 'INNER'
         ]);
         $this->hasMany('Employes', [
-            'className' => 'Employes',
             'foreignKey' => 'employe_id'
         ]);
-        
         $this->belongsToMany('Formations', [
-            'through' => 'FormationsCompletees'
+            'foreignKey' => 'employe_id',
+            'targetForeignKey' => 'formation_id',
+            'joinTable' => 'employes_formations'
         ]);
-        
     }
 
     /**
@@ -87,7 +86,6 @@ class EmployesTable extends Table
         $validator
             ->scalar('numero')
             ->requirePresence('numero', 'create')
-            ->lengthBetween('numero', [1,10])
             ->notEmpty('numero');
 
         $validator
@@ -102,12 +100,11 @@ class EmployesTable extends Table
 
         $validator
             ->scalar('cellulaire')
-            ->lengthBetween('cellulaire', [10,10])
             ->allowEmpty('cellulaire');
 
         $validator
             ->scalar('courriel')
-            ->notEmpty('courriel');
+            ->allowEmpty('courriel');
 
         $validator
             ->boolean('actif')
@@ -135,10 +132,10 @@ class EmployesTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['civilite_id'], 'Civilites'));
-        $rules->add($rules->existsIn(['poste_id'], 'Postes'));
-        $rules->add($rules->existsIn(['immeuble_id'], 'Immeubles'));
         $rules->add($rules->existsIn(['langue_id'], 'Langues'));
+        $rules->add($rules->existsIn(['immeuble_id'], 'Immeubles'));
         $rules->add($rules->existsIn(['employe_id'], 'Employes'));
+        $rules->add($rules->existsIn(['poste_id'], 'Postes'));
 
         return $rules;
     }

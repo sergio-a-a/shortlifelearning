@@ -12,8 +12,9 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\CategoriesTable|\Cake\ORM\Association\BelongsTo $Categories
  * @property \App\Model\Table\FrequencesTable|\Cake\ORM\Association\BelongsTo $Frequences
  * @property \App\Model\Table\DebutRappelsTable|\Cake\ORM\Association\BelongsTo $DebutRappels
- * @property |\Cake\ORM\Association\BelongsTo $Modalites
- * @property \App\Model\Table\FormationsCompleteesTable|\Cake\ORM\Association\HasMany $FormationsCompletees
+ * @property \App\Model\Table\ModalitesTable|\Cake\ORM\Association\BelongsTo $Modalites
+ * @property \App\Model\Table\StatussTable|\Cake\ORM\Association\BelongsTo $Statuss
+ * @property \App\Model\Table\EmployesTable|\Cake\ORM\Association\BelongsToMany $Employes
  *
  * @method \App\Model\Entity\Formation get($primaryKey, $options = [])
  * @method \App\Model\Entity\Formation newEntity($data = null, array $options = [])
@@ -56,11 +57,14 @@ class FormationsTable extends Table
             'foreignKey' => 'modalite_id',
             'joinType' => 'INNER'
         ]);
-        $this->hasMany('FormationsCompletees', [
-            'foreignKey' => 'formation_id'
+        $this->belongsTo('Statuss', [
+            'foreignKey' => 'satus_id',
+            'joinType' => 'INNER'
         ]);
         $this->belongsToMany('Employes', [
-            'through' => 'FormationsCompletees'
+            'foreignKey' => 'formation_id',
+            'targetForeignKey' => 'employe_id',
+            'joinTable' => 'employes_formations'
         ]);
     }
 
@@ -111,6 +115,7 @@ class FormationsTable extends Table
         $rules->add($rules->existsIn(['frequence_id'], 'Frequences'));
         $rules->add($rules->existsIn(['Debut_rappel_id'], 'DebutRappels'));
         $rules->add($rules->existsIn(['modalite_id'], 'Modalites'));
+        $rules->add($rules->existsIn(['satus_id'], 'Statuss'));
 
         return $rules;
     }

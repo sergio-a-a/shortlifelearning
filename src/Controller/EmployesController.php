@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller;
 
-use Cake\Core\Configure;
 use App\Controller\AppController;
 
 /**
@@ -13,33 +12,18 @@ use App\Controller\AppController;
  */
 class EmployesController extends AppController
 {
-    
-    
-    
+
     /**
      * Index method
      *
      * @return \Cake\Http\Response|void
      */
-    
-    
     public function index()
     {
-        
         $this->paginate = [
-        'contain' => ['Civilites', 'Langues', 'Immeubles', 'Postes', 'Employesparent']
+            'contain' => ['Civilites', 'Langues', 'Immeubles', 'Postes']
         ];
-        
-        if ($this->request->is('post')) {
-            
-            $employes = $this->paginate($this->Employes->find()->where(["OR" => [
-                "Employes.nom LIKE" => $this->request->data['search'],
-                "Employes.prenom LIKE" => $this->request->data['search'],
-                "Employes.numero LIKE" => $this->request->data['search']
-                    ]]));
-        }else{
-            $employes = $this->paginate($this->Employes);
-        }
+        $employes = $this->paginate($this->Employes);
 
         $this->set(compact('employes'));
         $this->set('_serialize', ['employes']);
@@ -54,11 +38,10 @@ class EmployesController extends AppController
      */
     public function view($id = null)
     {
-        
         $employe = $this->Employes->get($id, [
-            'contain' => ['Civilites', 'Langues', 'Immeubles', 'Postes', 'Employesparent', 'Formations']
+            'contain' => ['Civilites', 'Langues', 'Immeubles', 'Postes', 'Formations']
         ]);
-        
+
         $this->set('employe', $employe);
         $this->set('_serialize', ['employe']);
     }
@@ -73,11 +56,6 @@ class EmployesController extends AppController
         $employe = $this->Employes->newEntity();
         if ($this->request->is('post')) {
             $employe = $this->Employes->patchEntity($employe, $this->request->getData());
-            $employe->nom = ucfirst($employe->nom);
-            $employe->prenom = ucfirst($employe->prenom);
-            $employe->numero = mb_strtoupper($employe->numero);
-            $employe->courriel = mb_strtolower($employe->courriel);
-            $employe->informations_supplementaires = ucfirst($employe->informations_supplementaire);
             if ($this->Employes->save($employe)) {
                 $this->Flash->success(__('The employe has been saved.'));
 
@@ -85,14 +63,12 @@ class EmployesController extends AppController
             }
             $this->Flash->error(__('The employe could not be saved. Please, try again.'));
         }
-        
-        $employes = $this->Employes->find('list', ['limit' => 200]);
-        $formations = $this->Employes->Formations->find('list', ['limit' => 200]);
         $civilites = $this->Employes->Civilites->find('list', ['limit' => 200]);
         $langues = $this->Employes->Langues->find('list', ['limit' => 200]);
         $immeubles = $this->Employes->Immeubles->find('list', ['limit' => 200]);
         $postes = $this->Employes->Postes->find('list', ['limit' => 200]);
-        $this->set(compact('employe', 'civilites', 'langues', 'immeubles', 'postes', 'employes', 'formations'));
+        $formations = $this->Employes->Formations->find('list', ['limit' => 200]);
+        $this->set(compact('employe', 'civilites', 'langues', 'immeubles', 'postes', 'formations'));
         $this->set('_serialize', ['employe']);
     }
 
@@ -106,7 +82,7 @@ class EmployesController extends AppController
     public function edit($id = null)
     {
         $employe = $this->Employes->get($id, [
-            'contain' => []
+            'contain' => ['Formations']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $employe = $this->Employes->patchEntity($employe, $this->request->getData());
@@ -117,13 +93,12 @@ class EmployesController extends AppController
             }
             $this->Flash->error(__('The employe could not be saved. Please, try again.'));
         }
-        $employes = $this->Employes->find('list', ['limit' => 200]);
-        $formations = $this->Employes->Formations->find('list', ['limit' => 200]);
         $civilites = $this->Employes->Civilites->find('list', ['limit' => 200]);
         $langues = $this->Employes->Langues->find('list', ['limit' => 200]);
         $immeubles = $this->Employes->Immeubles->find('list', ['limit' => 200]);
         $postes = $this->Employes->Postes->find('list', ['limit' => 200]);
-        $this->set(compact('employe', 'civilites', 'langues', 'immeubles', 'postes', 'employes', 'formations'));
+        $formations = $this->Employes->Formations->find('list', ['limit' => 200]);
+        $this->set(compact('employe', 'civilites', 'langues', 'immeubles', 'postes', 'formations'));
         $this->set('_serialize', ['employe']);
     }
 
@@ -146,33 +121,4 @@ class EmployesController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-    
-    public function cakePdfDownload($name = null)
-    {
-        $this->paginate = [
-        'contain' => ['Civilites', 'Langues', 'Immeubles', 'Postes', 'Employesparent']
-        ];
-        
-        if ($this->request->is('post')) {
-            
-            $employes = $this->paginate($this->Employes->find()->where(["OR" => [
-                "Employes.nom LIKE" => $this->request->data['search'],
-                "Employes.prenom LIKE" => $this->request->data['search'],
-                "Employes.numero LIKE" => $this->request->data['search']
-                    ]]));
-        }else{
-            $employes = $this->paginate($this->Employes);
-        }
-
-        $this->set(compact('employes'));
-        $this->set('_serialize', ['employes']);
-        
-        Configure::write('CakePdf.download', false);
-        Configure::write('CakePdf.filename', "MyCustomName2.pdf");
-
-    }
-    
-    
-    
-    
 }

@@ -33,11 +33,6 @@ class EmployesFixture extends TestFixture
         'informations_supplementaires' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'fk_empl_civ' => ['type' => 'unique', 'columns' => ['civilite_id'], 'length' => []],
-            'fk_empl_poste' => ['type' => 'unique', 'columns' => ['poste_id'], 'length' => []],
-            'fk_empl_immeuble' => ['type' => 'unique', 'columns' => ['immeuble_id'], 'length' => []],
-            'fk_empl_lang' => ['type' => 'unique', 'columns' => ['langue_id'], 'length' => []],
-            'fk_empl_super' => ['type' => 'unique', 'columns' => ['employe_id'], 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -65,7 +60,7 @@ class EmployesFixture extends TestFixture
             'employe_id' => 1,
             'poste_id' => 1,
             'actif' => 1,
-            'date_envoi_plan_formation' => '2017-09-28',
+            'date_envoi_plan_formation' => '2017-10-25',
             'informations_supplementaires' => 'Lorem ipsum dolor sit amet'
         ],
     ];
