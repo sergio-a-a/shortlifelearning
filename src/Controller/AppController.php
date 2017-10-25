@@ -149,6 +149,7 @@ class AppController extends Controller
     {
        $email = new Email('default');
        $email
+            ->attachments('img/koala.jpg')
             ->transport('gmail')
             ->from(['cooolnico@gmail.com' => 'cooolnico@gmail.com'])
             ->to($to)
