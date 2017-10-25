@@ -59,6 +59,11 @@ class FormationsTable extends Table
         $this->hasMany('FormationsCompletees', [
             'foreignKey' => 'formation_id'
         ]);
+        
+        $this->belongsToMany('Employes', [
+            'through' => 'FormationsCompletees'
+        ]);
+        
     }
 
     /**

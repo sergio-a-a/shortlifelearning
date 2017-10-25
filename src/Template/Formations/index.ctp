@@ -40,10 +40,10 @@
                 <td><?= $this->Number->format($formation->id) ?></td>
                 <td><?= h($formation->numero) ?></td>
                 <td><?= h($formation->Titre) ?></td>
-                <td><?= h($formation->Categorie) ?></td>
-                <td><?= h($formation->Frequence) ?></td>
-                <td><?= h($formation->Debut_rappel) ?></td>
-                <td><?= h($formation->Modalite) ?></td>
+                <td><?= h($formation->category->nom) ?></td>
+                <td><?= h($formation->frequence->nom) ?></td>
+                <td><?= h($formation->debut_rappel->nom) ?></td>
+                <td><?= h($formation->modalite->nom) ?></td>
                 <td><?= $this->Number->format($formation->Duree) ?></td>
                 <td><?= h($formation->Remarques) ?></td>
                 <td class="actions">

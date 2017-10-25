@@ -73,45 +73,17 @@
         
     </table>
     <div class="related">
-        <h4><?= __('Related Employes') ?></h4>
-        <?php if (!empty($employe->employesparent)): ?>
+        <h4><?= __('Related Formations') ?></h4>
+        <?php if (!empty($employe->formations)): ?>
         <table cellpadding="0" cellspacing="0">
+            <?php foreach ($employe->formations as $formations): ?>
             <tr>
-                <th scope="col"><?= __('Numero') ?></th>
-                <th scope="col"><?= __('Nom') ?></th>
-                <th scope="col"><?= __('Prenom') ?></th>
-                <th scope="col"><?= __('Civilite Id') ?></th>
-                <th scope="col"><?= __('Cellulaire') ?></th>
-                <th scope="col"><?= __('Courriel') ?></th>
-                <th scope="col"><?= __('Langue Id') ?></th>
-                <th scope="col"><?= __('Immeuble Id') ?></th>
-                <th scope="col"><?= __('Employe Id') ?></th>
-                <th scope="col"><?= __('Poste Id') ?></th>
-                <th scope="col"><?= __('Actif') ?></th>
-                <th scope="col"><?= __('Date Envoi Plan Formation') ?></th>
-                <th scope="col"><?= __('Informations Supplementaires') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
+                <th scope="col"><?= __('Titre') ?></th>
+                <th scope="col"><?= __('Join Data') ?></th>
             </tr>
-            <?php foreach ($employe->employesparent as $employes): ?>
             <tr>
-                <td><?= h($employes->numero) ?></td>
-                <td><?= h($employes->nom) ?></td>
-                <td><?= h($employes->prenom) ?></td>
-                <td><?= h($employes->civilite_id) ?></td>
-                <td><?= h($employes->cellulaire) ?></td>
-                <td><?= h($employes->courriel) ?></td>
-                <td><?= h($employes->langue_id) ?></td>
-                <td><?= h($employes->immeuble_id) ?></td>
-                <td><?= h($employes->employe_id) ?></td>
-                <td><?= h($employes->poste_id) ?></td>
-                <td><?= h($employes->actif) ?></td>
-                <td><?= h($employes->date_envoi_plan_formation) ?></td>
-                <td><?= h($employes->informations_supplementaires) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Employes', 'action' => 'view', $employes->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Employes', 'action' => 'edit', $employes->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Employes', 'action' => 'delete', $employes->id], ['confirm' => __('Are you sure you want to delete # {0}?', $employes->id)]) ?>
-                </td>
+                <td><?= h($formations->Titre) ?></td>
+                <td><?= h($formations->_joinData->Remarque) ?></td>
             </tr>
             <?php endforeach; ?>
         </table>

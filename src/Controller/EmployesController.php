@@ -56,7 +56,7 @@ class EmployesController extends AppController
     {
         
         $employe = $this->Employes->get($id, [
-            'contain' => ['Civilites', 'Langues', 'Immeubles', 'Postes', 'Employesparent']
+            'contain' => ['Civilites', 'Langues', 'Immeubles', 'Postes', 'Employesparent', 'Formations']
         ]);
         
         $this->set('employe', $employe);
@@ -85,12 +85,14 @@ class EmployesController extends AppController
             }
             $this->Flash->error(__('The employe could not be saved. Please, try again.'));
         }
+        
         $employes = $this->Employes->find('list', ['limit' => 200]);
+        $formations = $this->Employes->Formations->find('list', ['limit' => 200]);
         $civilites = $this->Employes->Civilites->find('list', ['limit' => 200]);
         $langues = $this->Employes->Langues->find('list', ['limit' => 200]);
         $immeubles = $this->Employes->Immeubles->find('list', ['limit' => 200]);
         $postes = $this->Employes->Postes->find('list', ['limit' => 200]);
-        $this->set(compact('employe', 'civilites', 'langues', 'immeubles', 'postes', 'employes'));
+        $this->set(compact('employe', 'civilites', 'langues', 'immeubles', 'postes', 'employes', 'formations'));
         $this->set('_serialize', ['employe']);
     }
 
@@ -116,11 +118,12 @@ class EmployesController extends AppController
             $this->Flash->error(__('The employe could not be saved. Please, try again.'));
         }
         $employes = $this->Employes->find('list', ['limit' => 200]);
+        $formations = $this->Employes->Formations->find('list', ['limit' => 200]);
         $civilites = $this->Employes->Civilites->find('list', ['limit' => 200]);
         $langues = $this->Employes->Langues->find('list', ['limit' => 200]);
         $immeubles = $this->Employes->Immeubles->find('list', ['limit' => 200]);
         $postes = $this->Employes->Postes->find('list', ['limit' => 200]);
-        $this->set(compact('employe', 'civilites', 'langues', 'immeubles', 'postes', 'employes'));
+        $this->set(compact('employe', 'civilites', 'langues', 'immeubles', 'postes', 'employes', 'formations'));
         $this->set('_serialize', ['employe']);
     }
 

@@ -65,6 +65,11 @@ class EmployesTable extends Table
             'className' => 'Employes',
             'foreignKey' => 'employe_id'
         ]);
+        
+        $this->belongsToMany('Formations', [
+            'through' => 'FormationsCompletees'
+        ]);
+        
     }
 
     /**

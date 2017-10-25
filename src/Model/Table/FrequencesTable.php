@@ -33,6 +33,12 @@ class FrequencesTable extends Table
         $this->setTable('frequences');
         $this->setDisplayField('nom');
         $this->setPrimaryKey('id');
+        
+        $this->hasMany('Formations', [
+            'foreignKey' => 'frequence_id'
+        ]);
+        
+        
     }
 
     /**
@@ -50,8 +56,7 @@ class FrequencesTable extends Table
         $validator
             ->scalar('nom')
             ->requirePresence('nom', 'create')
-            ->notEmpty('nom')
-            ->add('nom', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->notEmpty('nom');
 
         return $validator;
     }

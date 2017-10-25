@@ -27,6 +27,7 @@
             echo $this->Form->control('actif');
             echo $this->Form->control('date_envoi_plan_formation', ['empty' => true]);
             echo $this->Form->control('informations_supplementaires');
+            echo $this->Form->control('formations._ids', ['options' => $formations]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

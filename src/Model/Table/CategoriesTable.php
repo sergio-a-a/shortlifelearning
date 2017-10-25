@@ -33,6 +33,11 @@ class CategoriesTable extends Table
         $this->setTable('categories');
         $this->setDisplayField('nom');
         $this->setPrimaryKey('id');
+        
+        $this->hasMany('Formations', [
+            'foreignKey' => 'categorie_id'
+        ]);
+        
     }
 
     /**
@@ -50,8 +55,7 @@ class CategoriesTable extends Table
         $validator
             ->scalar('nom')
             ->requirePresence('nom', 'create')
-            ->notEmpty('nom')
-            ->add('nom', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->notEmpty('nom');
 
         return $validator;
     }
