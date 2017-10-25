@@ -225,7 +225,7 @@ Configure::write('CakePdf', [
     'engine' => [
         'className' => 'CakePdf.WkHtmlToPdf',
         //'binary' => '/usr/bin/wkhtmltopdf', //LINUX
-        'binary' => 'C:\PROGRA~1\wkhtmltopdf\bin\wkhtmltopdf.exe', //WINDOWS
+        'binary' => 'C:\EasyPHP-Devserver-17\eds-www\GIT-LLL\shortlifelearning\wkhtmltopdf\bin\wkhtmltopdf.exe', //WINDOWS
         'options' => [
             'print-media-type' => false,
             'outline' => true,
