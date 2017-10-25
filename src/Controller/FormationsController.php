@@ -54,7 +54,7 @@ class FormationsController extends AppController
     public function view($id = null)
     {
         $formation = $this->Formations->get($id, [
-            'contain' => ['Categories', 'Frequences', 'DebutRappels', 'Modalites', 'FormationsCompletees', 'Employes']
+            'contain' => ['Categories', 'Frequences', 'DebutRappels', 'Modalites', 'FormationsCompletees']
         ]);
 
         $this->set('formation', $formation);
@@ -79,10 +79,10 @@ class FormationsController extends AppController
             $this->Flash->error(__('The formation could not be saved. Please, try again.'));
         }
         $categories = $this->Formations->Categories->find('list', ['limit' => 200]);
+        $employes = $this->Formations->Employes->find('list', ['limit' => 200]);
         $frequences = $this->Formations->Frequences->find('list', ['limit' => 200]);
         $debutRappels = $this->Formations->DebutRappels->find('list', ['limit' => 200]);
         $modalites = $this->Formations->Modalites->find('list', ['limit' => 200]);
-        $employes = $this->Formations->Employes->find('list', ['limit' => 200]);
         $this->set(compact('formation', 'categories', 'frequences', 'debutRappels', 'modalites', 'employes'));
         $this->set('_serialize', ['formation']);
     }
@@ -109,10 +109,11 @@ class FormationsController extends AppController
             $this->Flash->error(__('The formation could not be saved. Please, try again.'));
         }
         $categories = $this->Formations->Categories->find('list', ['limit' => 200]);
+        $employes = $this->Formations->Employes->find('list', ['limit' => 200]);
         $frequences = $this->Formations->Frequences->find('list', ['limit' => 200]);
         $debutRappels = $this->Formations->DebutRappels->find('list', ['limit' => 200]);
         $modalites = $this->Formations->Modalites->find('list', ['limit' => 200]);
-        $this->set(compact('formation', 'categories', 'frequences', 'debutRappels', 'modalites'));
+        $this->set(compact('formation', 'categories', 'frequences', 'debutRappels', 'modalites', 'employes'));
         $this->set('_serialize', ['formation']);
     }
 

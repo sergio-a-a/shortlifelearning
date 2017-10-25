@@ -8,27 +8,28 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Formation'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Categories'), ['controller' => 'Categories', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Category'), ['controller' => 'Categories', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Frequences'), ['controller' => 'Frequences', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Frequence'), ['controller' => 'Frequences', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Modalites'), ['controller' => 'Modalites', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Modalite'), ['controller' => 'Modalites', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Formations Completees'), ['controller' => 'FormationsCompletees', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Formations Completee'), ['controller' => 'FormationsCompletees', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="formations index large-9 medium-8 columns content">
     <h3><?= __('Formations') ?></h3>
-    <form action="" method="post">
-        <label>Search</label>
-        <input type="text" name="search"/>
-        <button type="submit">Search</button>
-    </form>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('numero') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Titre') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Categorie') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Frequence') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Debut_rappel') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Modalite') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('categorie_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('frequence_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Debut_rappel_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('modalite_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Duree') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Remarques') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -40,10 +41,10 @@
                 <td><?= $this->Number->format($formation->id) ?></td>
                 <td><?= h($formation->numero) ?></td>
                 <td><?= h($formation->Titre) ?></td>
-                <td><?= h($formation->category->nom) ?></td>
-                <td><?= h($formation->frequence->nom) ?></td>
-                <td><?= h($formation->debut_rappel->nom) ?></td>
-                <td><?= h($formation->modalite->nom) ?></td>
+                <td><?= $formation->has('category') ? $this->Html->link($formation->category->nom, ['controller' => 'Categories', 'action' => 'view', $formation->category->id]) : '' ?></td>
+                <td><?= $formation->has('frequence') ? $this->Html->link($formation->frequence->nom, ['controller' => 'Frequences', 'action' => 'view', $formation->frequence->id]) : '' ?></td>
+                <td><?= $formation->has('debut_rappel') ? $this->Html->link($formation->debut_rappel->nom, ['controller' => 'DebutRappels', 'action' => 'view', $formation->debut_rappel->id]) : '' ?></td>
+                <td><?= $formation->has('modalite') ? $this->Html->link($formation->modalite->nom, ['controller' => 'Modalites', 'action' => 'view', $formation->modalite->id]) : '' ?></td>
                 <td><?= $this->Number->format($formation->Duree) ?></td>
                 <td><?= h($formation->Remarques) ?></td>
                 <td class="actions">
