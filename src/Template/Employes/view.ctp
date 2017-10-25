@@ -3,6 +3,7 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Employe $employe
  */
+
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
@@ -68,6 +69,8 @@
             <th scope="row"><?= __('Actif') ?></th>
             <td><?= $employe->actif ? __('Yes') : __('No'); ?></td>
         </tr>
+
+        
     </table>
     <div class="related">
         <h4><?= __('Related Employes') ?></h4>

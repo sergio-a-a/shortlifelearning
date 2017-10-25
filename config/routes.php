@@ -81,6 +81,12 @@ Router::scope('/', function (RouteBuilder $routes) {
  */
 Plugin::routes();
 Router::scope('/', function (\Cake\Routing\RouteBuilder $routes) {
-    $routes->addExtensions(['pdf']);
+    $routes->addExtensions(['pdf', 'xml', 'rss', 'pdf']);
     // ...
+});
+
+Router::scope('/employes/cake-pdf-download/:id', function (RouteBuilder $routes) {
+    $routes->addExtensions(['pdf']);
+    $routes->connect('/', ['controller' => 'Employes', 'action' => 'cakePdfDownload']);
+
 });

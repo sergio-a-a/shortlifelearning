@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use Cake\Core\Configure;
 use App\Controller\AppController;
 
 /**
@@ -12,12 +13,16 @@ use App\Controller\AppController;
  */
 class EmployesController extends AppController
 {
-
+    
+    
+    
     /**
      * Index method
      *
      * @return \Cake\Http\Response|void
      */
+    
+    
     public function index()
     {
         
@@ -53,7 +58,7 @@ class EmployesController extends AppController
         $employe = $this->Employes->get($id, [
             'contain' => ['Civilites', 'Langues', 'Immeubles', 'Postes', 'Employesparent']
         ]);
-
+        
         $this->set('employe', $employe);
         $this->set('_serialize', ['employe']);
     }
@@ -138,4 +143,33 @@ class EmployesController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    
+    public function cakePdfDownload($name = null)
+    {
+        $this->paginate = [
+        'contain' => ['Civilites', 'Langues', 'Immeubles', 'Postes', 'Employesparent']
+        ];
+        
+        if ($this->request->is('post')) {
+            
+            $employes = $this->paginate($this->Employes->find()->where(["OR" => [
+                "Employes.nom LIKE" => $this->request->data['search'],
+                "Employes.prenom LIKE" => $this->request->data['search'],
+                "Employes.numero LIKE" => $this->request->data['search']
+                    ]]));
+        }else{
+            $employes = $this->paginate($this->Employes);
+        }
+
+        $this->set(compact('employes'));
+        $this->set('_serialize', ['employes']);
+        
+        Configure::write('CakePdf.download', false);
+        Configure::write('CakePdf.filename', "MyCustomName2.pdf");
+
+    }
+    
+    
+    
+    
 }
