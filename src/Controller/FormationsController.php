@@ -23,7 +23,17 @@ class FormationsController extends AppController
         $this->paginate = [
             'contain' => ['Categories', 'Frequences', 'DebutRappels', 'Modalites', 'Statuss']
         ];
-        $formations = $this->paginate($this->Formations);
+        
+        if ($this->request->is('post')) {
+            
+            $formations = $this->paginate($this->Formations->find()->where(["OR" => [
+                "Formations.titre LIKE" => $this->request->data['search'],
+                "Formations.numero LIKE" => $this->request->data['search']
+                ]]));
+        }else{
+            $formations = $this->paginate($this->Formations);
+        }
+
 
         $this->set(compact('formations'));
         $this->set('_serialize', ['formations']);

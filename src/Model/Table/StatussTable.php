@@ -31,7 +31,7 @@ class StatussTable extends Table
         parent::initialize($config);
 
         $this->setTable('statuss');
-        $this->setDisplayField('id');
+        $this->setDisplayField('status');
         $this->setPrimaryKey('id');
     }
 

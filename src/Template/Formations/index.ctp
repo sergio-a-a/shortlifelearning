@@ -24,10 +24,14 @@
 </nav>
 <div class="formations index large-9 medium-8 columns content">
     <h3><?= __('Formations') ?></h3>
+    <form action="" method="post">
+        <label>Search</label>
+        <input type="text" name="search"/>
+        <button type="submit">Search</button>
+    </form>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('numero') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Titre') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('categorie_id') ?></th>
@@ -43,7 +47,6 @@
         <tbody>
             <?php foreach ($formations as $formation): ?>
             <tr>
-                <td><?= $this->Number->format($formation->id) ?></td>
                 <td><?= h($formation->numero) ?></td>
                 <td><?= h($formation->Titre) ?></td>
                 <td><?= $formation->has('category') ? $this->Html->link($formation->category->nom, ['controller' => 'Categories', 'action' => 'view', $formation->category->id]) : '' ?></td>
@@ -52,7 +55,7 @@
                 <td><?= $formation->has('modalite') ? $this->Html->link($formation->modalite->nom, ['controller' => 'Modalites', 'action' => 'view', $formation->modalite->id]) : '' ?></td>
                 <td><?= $this->Number->format($formation->Duree) ?></td>
                 <td><?= h($formation->Remarques) ?></td>
-                <td><?= $formation->has('status') ? $this->Html->link($formation->status->id, ['controller' => 'Statuss', 'action' => 'view', $formation->status->id]) : '' ?></td>
+                <td><?= $formation->has('status') ? $this->Html->link($formation->status->status, ['controller' => 'Statuss', 'action' => 'view', $formation->status->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $formation->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $formation->id]) ?>

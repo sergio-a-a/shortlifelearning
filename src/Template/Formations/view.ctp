@@ -58,11 +58,7 @@
         </tr>
         <tr>
             <th scope="row"><?= __('Status') ?></th>
-            <td><?= $formation->has('status') ? $this->Html->link($formation->status->id, ['controller' => 'Statuss', 'action' => 'view', $formation->status->id]) : '' ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($formation->id) ?></td>
+            <td><?= $formation->has('status') ? $this->Html->link($formation->status->status, ['controller' => 'Statuss', 'action' => 'view', $formation->status->id]) : '' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Duree') ?></th>
@@ -74,7 +70,6 @@
         <?php if (!empty($formation->employes)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Numero') ?></th>
                 <th scope="col"><?= __('Nom') ?></th>
                 <th scope="col"><?= __('Prenom') ?></th>
@@ -85,14 +80,12 @@
                 <th scope="col"><?= __('Immeuble Id') ?></th>
                 <th scope="col"><?= __('Employe Id') ?></th>
                 <th scope="col"><?= __('Poste Id') ?></th>
-                <th scope="col"><?= __('Actif') ?></th>
                 <th scope="col"><?= __('Date Envoi Plan Formation') ?></th>
                 <th scope="col"><?= __('Informations Supplementaires') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($formation->employes as $employes): ?>
             <tr>
-                <td><?= h($employes->id) ?></td>
                 <td><?= h($employes->numero) ?></td>
                 <td><?= h($employes->nom) ?></td>
                 <td><?= h($employes->prenom) ?></td>
@@ -103,7 +96,6 @@
                 <td><?= h($employes->immeuble_id) ?></td>
                 <td><?= h($employes->employe_id) ?></td>
                 <td><?= h($employes->poste_id) ?></td>
-                <td><?= h($employes->actif) ?></td>
                 <td><?= h($employes->date_envoi_plan_formation) ?></td>
                 <td><?= h($employes->informations_supplementaires) ?></td>
                 <td class="actions">
