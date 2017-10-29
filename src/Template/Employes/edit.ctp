@@ -40,7 +40,7 @@
             echo $this->Form->control('courriel');
             echo $this->Form->control('langue_id', ['options' => $langues]);
             echo $this->Form->control('immeuble_id', ['options' => $immeubles]);
-            echo $this->Form->control('employe_id');
+            echo $this->Form->control('employe_id', ['options' => $superviseurs, 'label' => 'Superviseur']);
             echo $this->Form->control('poste_id', ['options' => $postes]);
             echo $this->Form->control('actif');
             echo $this->Form->control('date_envoi_plan_formation', ['empty' => true]);

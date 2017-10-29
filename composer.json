@@ -12,7 +12,8 @@
         "cakephp/plugin-installer": "~1.0",
         "josegonzalez/dotenv": "2.*",
         "friendsofcake/cakepdf": "^3.2",
-        "mikehaertl/phpwkhtmltopdf": "^2.2"
+        "mikehaertl/phpwkhtmltopdf": "^2.2",
+        "dompdf/dompdf": "^0.8.1"
     },
     "require-dev": {
         "psy/psysh": "@stable",

@@ -54,8 +54,12 @@ class EmployesTable extends Table
             'foreignKey' => 'immeuble_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('Employes', [
-            'foreignKey' => 'employe_id'
+        
+        // Creation de lien entre la table Employes et la foreign key employe_id et renomme Employes à Superviseurs
+        $this->belongsTo('Superviseurs', [
+            'className' => 'Employes',
+            'foreignKey' => 'employe_id',
+            'joinType' => 'INNER'
         ]);
         $this->belongsTo('Postes', [
             'foreignKey' => 'poste_id',

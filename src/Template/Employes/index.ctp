@@ -22,10 +22,14 @@
 </nav>
 <div class="employes index large-9 medium-8 columns content">
     <h3><?= __('Employes') ?></h3>
+    <form action="" method="post">
+        <label>Search</label>
+        <input type="text" name="search"/>
+        <button type="submit">Search</button>
+    </form>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('numero') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('nom') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('prenom') ?></th>
@@ -34,18 +38,15 @@
                 <th scope="col"><?= $this->Paginator->sort('courriel') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('langue_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('immeuble_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('employe_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('employe_id', ['label' => 'Superviseur']) ?></th>
                 <th scope="col"><?= $this->Paginator->sort('poste_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('actif') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('date_envoi_plan_formation') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('informations_supplementaires') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($employes as $employe): ?>
             <tr>
-                <td><?= $this->Number->format($employe->id) ?></td>
                 <td><?= h($employe->numero) ?></td>
                 <td><?= h($employe->nom) ?></td>
                 <td><?= h($employe->prenom) ?></td>
@@ -54,11 +55,9 @@
                 <td><?= h($employe->courriel) ?></td>
                 <td><?= $employe->has('langue') ? $this->Html->link($employe->langue->nom, ['controller' => 'Langues', 'action' => 'view', $employe->langue->id]) : '' ?></td>
                 <td><?= $employe->has('immeuble') ? $this->Html->link($employe->immeuble->address, ['controller' => 'Immeubles', 'action' => 'view', $employe->immeuble->id]) : '' ?></td>
-                <td><?= $this->Number->format($employe->employe_id) ?></td>
+                <td><?= $employe->has('superviseur') ? $this->Html->link($employe->superviseur->nom, ['controller' => 'Employes', 'action' => 'view', $employe->superviseur->id]) : '' ?></td>
                 <td><?= $employe->has('poste') ? $this->Html->link($employe->poste->titre, ['controller' => 'Postes', 'action' => 'view', $employe->poste->id]) : '' ?></td>
-                <td><?= h($employe->actif) ?></td>
                 <td><?= h($employe->date_envoi_plan_formation) ?></td>
-                <td><?= h($employe->informations_supplementaires) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $employe->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $employe->id]) ?>

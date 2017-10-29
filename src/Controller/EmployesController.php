@@ -21,10 +21,19 @@ class EmployesController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Civilites', 'Langues', 'Immeubles', 'Postes']
+            'contain' => ['Civilites', 'Langues', 'Immeubles', 'Postes', 'Superviseurs']
         ];
-        $employes = $this->paginate($this->Employes);
-
+        
+        if (!empty($this->request->data['search'])) {
+            $employes = $this->paginate($this->Employes->find()->where(["OR" => [
+                "Employes.nom LIKE" => $this->request->data['search'],
+                "Employes.prenom LIKE" => $this->request->data['search'],
+                "Employes.numero LIKE" => $this->request->data['search']
+                    ]]));
+        }else{
+            $employes = $this->paginate($this->Employes);
+        }
+        
         $this->set(compact('employes'));
         $this->set('_serialize', ['employes']);
     }
@@ -39,9 +48,10 @@ class EmployesController extends AppController
     public function view($id = null)
     {
         $employe = $this->Employes->get($id, [
-            'contain' => ['Civilites', 'Langues', 'Immeubles', 'Postes', 'Formations']
+            'contain' => ['Civilites', 'Langues', 'Immeubles', 'Postes', 'Formations', 'Superviseurs']
         ]);
-
+        
+        
         $this->set('employe', $employe);
         $this->set('_serialize', ['employe']);
     }
@@ -65,10 +75,11 @@ class EmployesController extends AppController
         }
         $civilites = $this->Employes->Civilites->find('list', ['limit' => 200]);
         $langues = $this->Employes->Langues->find('list', ['limit' => 200]);
+        $superviseurs = $this->Employes->Superviseurs->find('list', ['limit' => 200]);
         $immeubles = $this->Employes->Immeubles->find('list', ['limit' => 200]);
         $postes = $this->Employes->Postes->find('list', ['limit' => 200]);
         $formations = $this->Employes->Formations->find('list', ['limit' => 200]);
-        $this->set(compact('employe', 'civilites', 'langues', 'immeubles', 'postes', 'formations'));
+        $this->set(compact('employe', 'civilites', 'langues', 'immeubles', 'postes', 'formations', 'superviseurs'));
         $this->set('_serialize', ['employe']);
     }
 
@@ -94,11 +105,12 @@ class EmployesController extends AppController
             $this->Flash->error(__('The employe could not be saved. Please, try again.'));
         }
         $civilites = $this->Employes->Civilites->find('list', ['limit' => 200]);
+        $superviseurs = $this->Employes->Superviseurs->find('list', ['limit' => 200]);
         $langues = $this->Employes->Langues->find('list', ['limit' => 200]);
         $immeubles = $this->Employes->Immeubles->find('list', ['limit' => 200]);
         $postes = $this->Employes->Postes->find('list', ['limit' => 200]);
         $formations = $this->Employes->Formations->find('list', ['limit' => 200]);
-        $this->set(compact('employe', 'civilites', 'langues', 'immeubles', 'postes', 'formations'));
+        $this->set(compact('employe', 'civilites', 'langues', 'immeubles', 'postes', 'formations', 'superviseurs'));
         $this->set('_serialize', ['employe']);
     }
 
@@ -114,6 +126,7 @@ class EmployesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $employe = $this->Employes->get($id);
         if ($this->Employes->delete($employe)) {
+            
             $this->Flash->success(__('The employe has been deleted.'));
         } else {
             $this->Flash->error(__('The employe could not be deleted. Please, try again.'));

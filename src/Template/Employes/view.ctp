@@ -69,12 +69,8 @@
             <td><?= h($employe->informations_supplementaires) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($employe->id) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Employe Id') ?></th>
-            <td><?= $this->Number->format($employe->employe_id) ?></td>
+            <th scope="row"><?= __('Superviseur') ?></th>
+            <td><?= $employe->has('superviseur') ? $this->Html->link($employe->superviseur->nom, ['controller' => 'Employes', 'action' => 'view', $employe->superviseur->id]) : '' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Date Envoi Plan Formation') ?></th>
@@ -85,7 +81,6 @@
             <td><?= $employe->actif ? __('Yes') : __('No'); ?></td>
         </tr>
     </table>
-    </div>
     <div class="related">
         <h4><?= __('Related Formations') ?></h4>
         <?php if (!empty($employe->formations)): ?>
