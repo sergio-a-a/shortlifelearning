@@ -1,9 +1,12 @@
 <?php
+
+    
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Employe[]|\Cake\Collection\CollectionInterface $employes
  */
 ?>
+
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
@@ -59,6 +62,7 @@
                 <td><?= $employe->has('poste') ? $this->Html->link($employe->poste->titre, ['controller' => 'Postes', 'action' => 'view', $employe->poste->id]) : '' ?></td>
                 <td><?= h($employe->date_envoi_plan_formation) ?></td>
                 <td class="actions">
+                    <?= $this->Html->link('PDF Export', ['controller' => 'Employes', 'action' => 'cake_pdf_download', 'id' => $employe->id]) ?>
                     <?= $this->Html->link(__('View'), ['action' => 'view', $employe->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $employe->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $employe->id], ['confirm' => __('Are you sure you want to delete # {0}?', $employe->id)]) ?>

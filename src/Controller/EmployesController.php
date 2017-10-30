@@ -1,8 +1,14 @@
 <?php
 namespace App\Controller;
 
+use Cake\Core\Configure;
 use App\Controller\AppController;
 
+use Cake\Filesystem\Folder;
+use Cake\Filesystem\File;
+
+// reference the Dompdf namespace
+use Dompdf\Dompdf;
 /**
  * Employes Controller
  *
@@ -134,4 +140,57 @@ class EmployesController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    public function topdf($id = null){
+        
+        $employe = $this->Employe->get($id);
+            $this->viewBuilder()->options([
+                'pdfConfig' => [
+                    'filename' => 'Employe_' . $id
+                ]
+            ]);
+        $this->set('employe', $employe);
+        $CakePdf = new \CakePdf\Pdf\CakePdf();
+        $CakePdf->template('newsletter', 'default');
+        $CakePdf->viewVars($this->viewVars);
+        // Get the PDF string returned
+        $pdf = $CakePdf->output();
+        // Or write it to file directly
+        $pdf = $CakePdf->write(APP . 'files' . DS . 'newsletter.pdf');
+        
+//        // instantiate and use the dompdf class
+//        $dompdf = new Dompdf();
+//        
+//        $this->autoRender = false;
+//        $dompdf->loadHtml($this->Html->link(__('List Formations'), ['controller' => 'Formations', 'action' => 'index']));
+//
+//        // (Optional) Setup the paper size and orientation
+//        $dompdf->setPaper('A4', 'landscape');
+//
+//        // Render the HTML as PDF
+//        $dompdf->render();
+//
+//        // Output the generated PDF to Browser
+//        $dompdf->stream();
+    }
+    public function cakePdfDownload($id = null)
+    {
+        $id = $this->request->query['id'];
+        $employe = $this->Employes->get($id, [
+            'contain' => ['Civilites', 'Langues', 'Immeubles', 'Postes', 'Formations', 'Superviseurs']
+        ]);
+        $this->set('employe', $employe);
+        
+        $CakePdf = new \CakePdf\Pdf\CakePdf();
+        $CakePdf->template("cake_pdf_download", "default");
+
+        $CakePdf->viewVars($this->viewVars);
+        $pdf = $CakePdf->write(APP . 'Files' . DS . 'Output.pdf');
+        //echo $pdf;die();
+//        
+        return $this->redirect(['action' => 'index']);
+        
+
+    }
+    
+    
 }

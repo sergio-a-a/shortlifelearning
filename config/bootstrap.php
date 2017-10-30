@@ -217,20 +217,16 @@ if (Configure::read('debug')) {
 }
 
 /*
- * Ajout du plugin CakePdf
+ * Ajout du plugin CakePdf avec l'engine dompdf
  */
 Plugin::load('CakePdf', ['bootstrap' => true]);
 
 Configure::write('CakePdf', [
     'engine' => [
-        'className' => 'CakePdf.WkHtmlToPdf',
-        //'binary' => '/usr/bin/wkhtmltopdf', //LINUX
-        'binary' => 'C:\EasyPHP-Devserver-17\eds-www\GIT-LLL\shortlifelearning\wkhtmltopdf\bin\wkhtmltopdf.exe', //WINDOWS
-        'options' => [
-            'print-media-type' => false,
-            'outline' => true,
-            'dpi' => 96
-        ]
+        'className' => 'CakePdf.Dompdf',
     ],
-    'pageSize' => 'Letter',
+    'orientation' => 'portrait'
 ]);
+define('DOMPDF_ENABLE_AUTOLOAD', false);
+define('DOMPDF_ENABLE_HTML5PARSER', true);
+define('DOMPDF_ENABLE_REMOTE', true);

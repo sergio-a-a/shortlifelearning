@@ -1,6 +1,7 @@
 <?php
 use Cake\Core\Configure;
 $cakeDescription = 'CakePHP: the rapid development PHP framework';
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,12 +17,13 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
     <?= $this->Html->css('base.css', ['fullBase' => true]) ?>
     <?= $this->Html->css('cake.css', ['fullBase' => true]) ?>
     <?= $this->Html->css('home.css', ['fullBase' => true]) ?>
+    
     <link href="https://fonts.googleapis.com/css?family=Raleway:500i|Roboto:300,400,700|Roboto+Mono" rel="stylesheet">
 </head>
 <body class="home">
 
 <div class="row">
-    <div class="columns large-12">
+    <div>
         <?= $this->fetch('content') ?>
     </div>
 </div>

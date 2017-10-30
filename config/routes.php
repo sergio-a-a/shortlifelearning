@@ -80,6 +80,9 @@ Router::scope('/', function (RouteBuilder $routes) {
  * how to customize the loading of plugin routes.
  */
 Plugin::routes();
+
+Router::extensions(['pdf']);
+
 Router::scope('/', function (\Cake\Routing\RouteBuilder $routes) {
     $routes->addExtensions(['pdf', 'xml', 'rss', 'pdf']);
     // ...
@@ -87,6 +90,7 @@ Router::scope('/', function (\Cake\Routing\RouteBuilder $routes) {
 
 Router::scope('/employes/cake-pdf-download/:id', function (RouteBuilder $routes) {
     $routes->addExtensions(['pdf']);
-    $routes->connect('/', ['controller' => 'Employes', 'action' => 'cakePdfDownload']);
+    $routes->connect('/', ['controller' => 'Employes', 'action' => 'cakePdfDownload', 'post' => ':id']);
+
 
 });
