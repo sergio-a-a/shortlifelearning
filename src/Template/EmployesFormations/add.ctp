@@ -20,7 +20,7 @@
         <?php
             echo $this->Form->control('employe_id', ['options' => $employes]);
             echo $this->Form->control('formation_id', ['options' => $formations]);
-            echo $this->Form->control('done', ['empty' => true]);
+            echo $this->Form->control('done', ['empty' => true, 'label' => 'Faite le :']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

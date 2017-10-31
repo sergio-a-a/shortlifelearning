@@ -1,11 +1,11 @@
 <?php
 namespace App\Controller;
 
-use Cake\Core\Configure;
+
 use App\Controller\AppController;
 
-use Cake\Filesystem\Folder;
-use Cake\Filesystem\File;
+use Cake\Mailer\Email;
+use Cake\I18n\Time;
 
 // reference the Dompdf namespace
 use Dompdf\Dompdf;
@@ -38,6 +38,7 @@ class EmployesController extends AppController
                     ]]));
         }else{
             $employes = $this->paginate($this->Employes);
+            
         }
         
         $this->set(compact('employes'));
@@ -54,12 +55,17 @@ class EmployesController extends AppController
     public function view($id = null)
     {
         $employe = $this->Employes->get($id, [
-            'contain' => ['Civilites', 'Langues', 'Immeubles', 'Postes', 'Formations', 'Superviseurs']
+            'contain' => [
+                'Civilites', 
+                'Langues', 
+                'Immeubles', 
+                'Postes', 
+                'Formations' => ['Categories', 'Frequences', 'DebutRappels', 'Modalites', 'Statuss'], 
+                'Superviseurs']
         ]);
         
-        
         $this->set('employe', $employe);
-        $this->set('_serialize', ['employe']);
+        $this->set('_serialize', 'employe');
     }
 
     /**
@@ -140,53 +146,50 @@ class EmployesController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-    public function topdf($id = null){
-        
-        $employe = $this->Employe->get($id);
-            $this->viewBuilder()->options([
-                'pdfConfig' => [
-                    'filename' => 'Employe_' . $id
-                ]
-            ]);
-        $this->set('employe', $employe);
-        $CakePdf = new \CakePdf\Pdf\CakePdf();
-        $CakePdf->template('newsletter', 'default');
-        $CakePdf->viewVars($this->viewVars);
-        // Get the PDF string returned
-        $pdf = $CakePdf->output();
-        // Or write it to file directly
-        $pdf = $CakePdf->write(APP . 'files' . DS . 'newsletter.pdf');
-        
-//        // instantiate and use the dompdf class
-//        $dompdf = new Dompdf();
-//        
-//        $this->autoRender = false;
-//        $dompdf->loadHtml($this->Html->link(__('List Formations'), ['controller' => 'Formations', 'action' => 'index']));
-//
-//        // (Optional) Setup the paper size and orientation
-//        $dompdf->setPaper('A4', 'landscape');
-//
-//        // Render the HTML as PDF
-//        $dompdf->render();
-//
-//        // Output the generated PDF to Browser
-//        $dompdf->stream();
-    }
+
     public function cakePdfDownload($id = null)
     {
         $id = $this->request->query['id'];
+        
         $employe = $this->Employes->get($id, [
-            'contain' => ['Civilites', 'Langues', 'Immeubles', 'Postes', 'Formations', 'Superviseurs']
+            'contain' => [
+                'Civilites', 
+                'Langues', 
+                'Immeubles', 
+                'Postes', 
+                'Formations' => ['Categories', 'Frequences', 'DebutRappels', 'Modalites', 'Statuss'], 
+                'Superviseurs']
         ]);
+        
         $this->set('employe', $employe);
         
+        // Creation du pdf dans src/template/files, nommé output.pdf
         $CakePdf = new \CakePdf\Pdf\CakePdf();
         $CakePdf->template("cake_pdf_download", "default");
-
         $CakePdf->viewVars($this->viewVars);
         $pdf = $CakePdf->write(APP . 'Files' . DS . 'Output.pdf');
-        //echo $pdf;die();
-//        
+        
+        
+        //obtient le courriel de l'employe
+        $to = $employe->courriel;
+
+        // Met la date l'envoi de la formation dans le button "Envoi formation" est cliquer
+        $time = Time::now();
+        $employe->date_envoi_plan_formation = $time;
+                
+        $this->Employes->save($employe);
+        
+        // Envoye le pdf 
+//        $email = new Email('default');
+//        $email
+//             ->attachments(APP . 'Files' . DS . 'Output.pdf')
+//             ->transport('gmail')
+//             ->from(['cooolnico@gmail.com' => 'cooolnico@gmail.com'])
+//             ->to($to)
+//             ->subject("plan de formation")
+//             ->emailFormat('html')
+//             ->send("Voici votre plan de formation en piece jointe");
+        
         return $this->redirect(['action' => 'index']);
         
 

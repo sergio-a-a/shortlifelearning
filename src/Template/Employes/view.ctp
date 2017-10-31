@@ -11,22 +11,11 @@
         <li><?= $this->Form->postLink(__('Delete Employe'), ['action' => 'delete', $employe->id], ['confirm' => __('Are you sure you want to delete # {0}?', $employe->id)]) ?> </li>
         <li><?= $this->Html->link(__('List Employes'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Employe'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Civilites'), ['controller' => 'Civilites', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Civilite'), ['controller' => 'Civilites', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Langues'), ['controller' => 'Langues', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Langue'), ['controller' => 'Langues', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Immeubles'), ['controller' => 'Immeubles', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Immeuble'), ['controller' => 'Immeubles', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Postes'), ['controller' => 'Postes', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Poste'), ['controller' => 'Postes', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Employes'), ['controller' => 'Employes', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Employe'), ['controller' => 'Employes', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Formations'), ['controller' => 'Formations', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Formation'), ['controller' => 'Formations', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="employes view large-9 medium-8 columns content">
     <h3><?= h($employe->nom) ?></h3>
+    <h5><?= $this->Html->link('Envoi le plan de formation', ['controller' => 'Employes', 'action' => 'cake_pdf_download', 'id' => $employe->id]) ?></h5>
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Numero') ?></th>
@@ -86,33 +75,32 @@
         <?php if (!empty($employe->formations)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Numero') ?></th>
                 <th scope="col"><?= __('Titre') ?></th>
-                <th scope="col"><?= __('Categorie Id') ?></th>
-                <th scope="col"><?= __('Frequence Id') ?></th>
-                <th scope="col"><?= __('Debut Rappel Id') ?></th>
-                <th scope="col"><?= __('Modalite Id') ?></th>
+                <th scope="col"><?= __('Categorie') ?></th>
+                <th scope="col"><?= __('Frequence') ?></th>
+                <th scope="col"><?= __('Debut Rappel') ?></th>
+                <th scope="col"><?= __('Modalite') ?></th>
                 <th scope="col"><?= __('Duree') ?></th>
                 <th scope="col"><?= __('Remarques') ?></th>
-                <th scope="col"><?= __('Satus Id') ?></th>
+                <th scope="col"><?= __('Status') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($employe->formations as $formations): ?>
             <tr>
-                <td><?= h($formations->id) ?></td>
                 <td><?= h($formations->numero) ?></td>
                 <td><?= h($formations->Titre) ?></td>
-                <td><?= h($formations->categorie_id) ?></td>
-                <td><?= h($formations->frequence_id) ?></td>
-                <td><?= h($formations->Debut_rappel_id) ?></td>
-                <td><?= h($formations->modalite_id) ?></td>
+                <td><?= h($formations->category->nom) ?></td>
+                <td><?= h($formations->frequence->nom) ?></td>
+                <td><?= h($formations->debut_rappel->nom) ?></td>
+                <td><?= h($formations->modalite->nom) ?></td>
                 <td><?= h($formations->Duree) ?></td>
                 <td><?= h($formations->Remarques) ?></td>
-                <td><?= h($formations->satus_id) ?></td>
+                <td><?= h($formations->status->status) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Formations', 'action' => 'view', $formations->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Formations', 'action' => 'edit', $formations->id]) ?>
+                    <?= $this->Html->link(__('Gérer date'), ['controller' => 'EmployesFormations', 'action' => 'edit', $formations->_joinData->id]) ?>
+                    <?= $this->Html->link(__('View'), ['controller' => 'Formations', 'action' => 'view', $formations->id]) ?><br>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Formations', 'action' => 'edit', $formations->id]) ?><br>
                     <?= $this->Form->postLink(__('Delete'), ['controller' => 'Formations', 'action' => 'delete', $formations->id], ['confirm' => __('Are you sure you want to delete # {0}?', $formations->id)]) ?>
                 </td>
             </tr>
@@ -120,4 +108,5 @@
         </table>
         <?php endif; ?>
     </div>
+    
 </div>

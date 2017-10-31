@@ -33,7 +33,7 @@
             <td><?= $this->Number->format($employesFormation->id) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Done') ?></th>
+            <th scope="row"><?= __('faite le : ') ?></th>
             <td><?= h($employesFormation->done) ?></td>
         </tr>
     </table>

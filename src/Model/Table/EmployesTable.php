@@ -90,6 +90,7 @@ class EmployesTable extends Table
         $validator
             ->scalar('numero')
             ->requirePresence('numero', 'create')
+            ->lengthBetween('numero', [1,10])
             ->notEmpty('numero');
 
         $validator
@@ -104,6 +105,7 @@ class EmployesTable extends Table
 
         $validator
             ->scalar('cellulaire')
+            ->lengthBetween('cellulaire', [10,10])
             ->allowEmpty('cellulaire');
 
         $validator

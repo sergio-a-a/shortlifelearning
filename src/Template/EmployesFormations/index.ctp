@@ -22,7 +22,7 @@
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('employe_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('formation_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('done') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('done', ['label' => 'faite le']) ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>

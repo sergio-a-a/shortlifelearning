@@ -3,61 +3,26 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Employe $employe
  */
+use Cake\I18n\Time;
 ?>
 <div class="employes view content">
-    <h3><?= h($employe->nom) ?></h3>
+    <h3>Plan de Formation</h3>
     <table class="vertical-table">
         <tr>
-            <th scope="row"><?= __('Numero') ?></th>
+            <th scope="row"><?= __("Numéro de l'employé : ") ?></th>
             <td><?= h($employe->numero) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Nom') ?></th>
-            <td><?= h($employe->nom) ?></td>
+            <th scope="row"><?= __("Nom de l'employé : ") ?></th>
+            <td><?= h($employe->nom) . ' ' . h($employe->prenom) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Prenom') ?></th>
-            <td><?= h($employe->prenom) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Civilite') ?></th>
-            <td><?= $employe->has('civilite') ? h($employe->civilite->nom) : '' ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Cellulaire') ?></th>
-            <td><?= h($employe->cellulaire) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Courriel') ?></th>
-            <td><?= h($employe->courriel) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Langue') ?></th>
-            <td><?= $employe->has('langue') ? h($employe->langue->nom) : '' ?></td>
+            <th scope="row"><?= __('Nom du superviseur : ') ?></th>
+            <td><?= h($employe->superviseur->nom) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Immeuble') ?></th>
             <td><?= $employe->has('immeuble') ? h($employe->immeuble->address) : '' ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Poste') ?></th>
-            <td><?= $employe->has('poste') ? h($employe->poste->titre) : '' ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Informations Supplementaires') ?></th>
-            <td><?= h($employe->informations_supplementaires) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Superviseur') ?></th>
-            <td><?= $employe->has('superviseur') ? h($employe->superviseur->nom) : '' ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Date Envoi Plan Formation') ?></th>
-            <td><?= h($employe->date_envoi_plan_formation) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Actif') ?></th>
-            <td><?= $employe->actif ? __('Yes') : __('No'); ?></td>
         </tr>
     </table>
     <div class="related">
@@ -65,27 +30,113 @@
         <?php if (!empty($employe->formations)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <th scope="col"><?= __('Numero') ?></th>
                 <th scope="col"><?= __('Titre') ?></th>
-                <th scope="col"><?= __('Categorie Id') ?></th>
-                <th scope="col"><?= __('Frequence Id') ?></th>
-                <th scope="col"><?= __('Debut Rappel Id') ?></th>
-                <th scope="col"><?= __('Modalite Id') ?></th>
-                <th scope="col"><?= __('Duree') ?></th>
-                <th scope="col"><?= __('Remarques') ?></th>
-                <th scope="col"><?= __('Satus Id') ?></th>
+                <th scope="col"><?= __('Status') ?></th>
+                <th scope="col"><?= __('Fréquence') ?></th>
+                <th scope="col"><?= __('Faite le') ?></th>
+                <th scope="col"><?= __('Prévue le') ?></th>
+                <th scope="col"><?= __('Expirée') ?></th>
+                <th scope="col"><?= __('À venir') ?></th>
+                <th scope="col"><?= __('À faire') ?></th>
+                <th scope="col"><?= __('Jamais faite') ?></th>
+                
             </tr>
             <?php foreach ($employe->formations as $formations): ?>
+            
+            <?php
+                
+                $currentDate = new DateTime("now");
+                $done = new DateTime($formations->_joinData->done);
+                
+            ?>
+            
+            
             <tr>
-                <td><?= h($formations->numero) ?></td>
                 <td><?= h($formations->Titre) ?></td>
-                <td><?= h($formations->categorie_id, ['label' => 'Categorie']) ?></td>
-                <td><?= h($formations->frequence_id) ?></td>
-                <td><?= h($formations->Debut_rappel_id) ?></td>
-                <td><?= h($formations->modalite_id) ?></td>
-                <td><?= h($formations->Duree) ?></td>
-                <td><?= h($formations->Remarques) ?></td>
-                <td><?= h($formations->satus_id) ?></td>
+                <td><?= h($formations->status->status) ?></td>
+                <td><?= h($formations->frequence->nom) ?></td>
+                <td><?= h($formations->_joinData->done) ?></td>
+                <td><?php
+                //Prévue le
+                $prevue = $done;
+                    if($formations->frequence->nom == 'une seule fois' && $formations->_joinData->done != null){
+                        echo '';
+                    }else if($formations->frequence->nom == '1 semaine' && $formations->_joinData->done != null){
+                        date_add($prevue, date_interval_create_from_date_string('7 days'));
+                        echo date_format($prevue, 'Y-m-d');
+                    }else if($formations->frequence->nom == '1 mois' && $formations->_joinData->done != null){
+                        date_add($prevue, date_interval_create_from_date_string('1 months'));
+                        echo date_format($prevue, 'Y-m-d');
+                    }else if($formations->frequence->nom == '3 mois' && $formations->_joinData->done != null){
+                        date_add($prevue, date_interval_create_from_date_string('3 months'));
+                        echo date_format($prevue, 'Y-m-d');
+                    }else if($formations->frequence->nom == '6 mois' && $formations->_joinData->done != null){
+                        date_add($prevue, date_interval_create_from_date_string('6 months'));
+                        echo date_format($prevue, 'Y-m-d');
+                    }else if($formations->frequence->nom == '18 mois' && $formations->_joinData->done != null){
+                        date_add($prevue, date_interval_create_from_date_string('18 months'));
+                        echo date_format($prevue, 'Y-m-d');
+                    }else if($formations->frequence->nom == '1 an' && $formations->_joinData->done != null){
+                        date_add($prevue, date_interval_create_from_date_string('1 years'));
+                        echo date_format($prevue, 'Y-m-d');
+                    }else if($formations->frequence->nom == '2 ans' && $formations->_joinData->done != null){
+                        date_add($prevue, date_interval_create_from_date_string('2 years'));
+                        echo date_format($prevue, 'Y-m-d');
+                    }else if($formations->frequence->nom == '3 ans' && $formations->_joinData->done != null){
+                        date_add($prevue, date_interval_create_from_date_string('3 years'));
+                        echo date_format($prevue, 'Y-m-d');
+                    }else if($formations->frequence->nom == '4 ans' && $formations->_joinData->done != null){
+                        date_add($prevue, date_interval_create_from_date_string('4 years'));
+                        echo date_format($prevue, 'Y-m-d');
+                    }else if($formations->frequence->nom == '5 an' && $formations->_joinData->done != null){
+                        date_add($prevue, date_interval_create_from_date_string('5 years'));
+                        echo date_format($prevue, 'Y-m-d');
+                    }
+                    
+                ?></td>
+                <td><?php // Expirée
+
+                    $diff = date_diff($currentDate, $prevue);
+                    if( $currentDate > $prevue ){
+                        if($formations->frequence->nom == 'une seule fois'){
+                            echo ' ';
+                        }else{
+                            echo $diff->format('%R%a jours');
+                        }
+                    }
+                    
+                ?></td>
+                <td><?php // À venir
+                    $diff = date_diff($currentDate, $prevue);
+                    if( $currentDate < $prevue ){
+                        if($formations->frequence->nom == 'une seule fois'){
+                            echo ' ';
+                        }else{
+                            echo $diff->format('%R%a jours');
+                        }
+                    }
+                
+                ?></td>
+                <td><?php // À faire 
+                
+                    if($prevue == null){
+                        echo "";
+                    }else {
+                        echo "À faire";
+                    }
+                
+                ?></td>
+                <td><?php // Jamais faite
+                
+                    if($formations->_joinData->done == null){
+                        echo "Jamais faite";
+                    }else {
+                        echo " ";
+                    }
+                
+                ?></td>
+ 
+                
             </tr>
             <?php endforeach; ?>
         </table>
