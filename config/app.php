@@ -220,6 +220,13 @@ return [
             ]
           ]
         ],
+        'sergiogmail' => [
+            'host' => 'ssl://smtp.gmail.com',
+            'port' => '465',
+            'username' => 'sergio.b.amaya@gmail.com',
+            'password' => 'zhdvomakzboihfei',
+            'className' => 'Smtp'
+        ],
     ],
     /**
      * Email delivery profiles

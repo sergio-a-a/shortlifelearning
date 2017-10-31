@@ -179,16 +179,16 @@ class EmployesController extends AppController
                 
         $this->Employes->save($employe);
         
-        // Envoye le pdf 
-//        $email = new Email('default');
-//        $email
-//             ->attachments(APP . 'Files' . DS . 'Output.pdf')
-//             ->transport('gmail')
-//             ->from(['cooolnico@gmail.com' => 'cooolnico@gmail.com'])
-//             ->to($to)
-//             ->subject("plan de formation")
-//             ->emailFormat('html')
-//             ->send("Voici votre plan de formation en piece jointe");
+    //     Envoye le pdf 
+        $email = new Email('default');
+        $email
+             ->attachments(APP . 'Files' . DS . 'Output.pdf')
+             ->transport('sergiogmail')
+             ->from(['sergio.b.amaya@gmail.com' => 'sergio.b.amaya@gmail.com'])
+             ->to($to)
+             ->subject("plan de formation")
+             ->emailFormat('html')
+             ->send("Voici votre plan de formation en piece jointe");
         
         return $this->redirect(['action' => 'index']);
         
