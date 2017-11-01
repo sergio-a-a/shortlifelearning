@@ -15,6 +15,8 @@
         <li><?= $this->Html->link(__('List Postes'), ['action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('List Employes'), ['controller' => 'Employes', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Employe'), ['controller' => 'Employes', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Formations'), ['controller' => 'Formations', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Formation'), ['controller' => 'Formations', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="postes form large-9 medium-8 columns content">
@@ -23,6 +25,7 @@
         <legend><?= __('Edit Poste') ?></legend>
         <?php
             echo $this->Form->control('titre');
+            echo $this->Form->control('formations._ids', ['options' => $formations]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

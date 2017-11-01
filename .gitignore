@@ -33,3 +33,4 @@ nbproject/* # NetBeans
 .vscode # Visual Studio Code
 .sass-cache/ # Sass preprocessor
 !/vendor/dompdf/
+/nbproject/private/

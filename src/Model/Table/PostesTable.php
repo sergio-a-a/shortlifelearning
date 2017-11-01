@@ -10,6 +10,7 @@ use Cake\Validation\Validator;
  * Postes Model
  *
  * @property \App\Model\Table\EmployesTable|\Cake\ORM\Association\HasMany $Employes
+ * @property |\Cake\ORM\Association\BelongsToMany $Formations
  *
  * @method \App\Model\Entity\Poste get($primaryKey, $options = [])
  * @method \App\Model\Entity\Poste newEntity($data = null, array $options = [])
@@ -38,6 +39,11 @@ class PostesTable extends Table
 
         $this->hasMany('Employes', [
             'foreignKey' => 'poste_id'
+        ]);
+        $this->belongsToMany('Formations', [
+            'foreignKey' => 'poste_id',
+            'targetForeignKey' => 'formation_id',
+            'joinTable' => 'formations_postes'
         ]);
     }
 

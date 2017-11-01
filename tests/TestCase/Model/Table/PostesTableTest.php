@@ -28,7 +28,14 @@ class PostesTableTest extends TestCase
         'app.employes',
         'app.civilites',
         'app.langues',
-        'app.immeubles'
+        'app.immeubles',
+        'app.formations',
+        'app.frequences',
+        'app.debut_rappels',
+        'app.modalites',
+        'app.statuss',
+        'app.employes_formations',
+        'app.formations_postes'
     ];
 
     /**

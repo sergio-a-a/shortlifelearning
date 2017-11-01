@@ -208,7 +208,7 @@ return [
           'host' => 'ssl://smtp.gmail.com',
           'port' => 465,
           'username' => 'cooolnico@gmail.com',  //your gmail address
-          'password' => '1poultra',        //your gmail password
+          'password' => 'pehbhlorlyqjammn',        //your gmail password
           'secure' => 'ssl',
           'className' => 'Smtp',
           'log' => true,
@@ -267,7 +267,7 @@ return [
              */
             //'port' => 'non_standard_port_number',
             'username' => 'root',
-            'password' => '',
+            'password' => 'root',
             'database' => 'longlifelearning',
             'encoding' => 'utf8',
             'timezone' => 'UTC',

@@ -17,7 +17,6 @@ class FormationsControllerTest extends IntegrationTestCase
      */
     public $fixtures = [
         'app.formations',
-        'app.categories',
         'app.frequences',
         'app.debut_rappels',
         'app.modalites',
@@ -27,6 +26,7 @@ class FormationsControllerTest extends IntegrationTestCase
         'app.langues',
         'app.immeubles',
         'app.postes',
+        'app.formations_postes',
         'app.employes_formations'
     ];
 

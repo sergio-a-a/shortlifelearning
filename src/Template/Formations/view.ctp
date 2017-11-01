@@ -11,8 +11,6 @@
         <li><?= $this->Form->postLink(__('Delete Formation'), ['action' => 'delete', $formation->id], ['confirm' => __('Are you sure you want to delete # {0}?', $formation->id)]) ?> </li>
         <li><?= $this->Html->link(__('List Formations'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Formation'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Categories'), ['controller' => 'Categories', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Category'), ['controller' => 'Categories', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Frequences'), ['controller' => 'Frequences', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Frequence'), ['controller' => 'Frequences', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Debut Rappels'), ['controller' => 'DebutRappels', 'action' => 'index']) ?> </li>
@@ -23,6 +21,8 @@
         <li><?= $this->Html->link(__('New Status'), ['controller' => 'Statuss', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Employes'), ['controller' => 'Employes', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Employe'), ['controller' => 'Employes', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Postes'), ['controller' => 'Postes', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Poste'), ['controller' => 'Postes', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="formations view large-9 medium-8 columns content">
@@ -35,10 +35,6 @@
         <tr>
             <th scope="row"><?= __('Titre') ?></th>
             <td><?= h($formation->Titre) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Category') ?></th>
-            <td><?= $formation->has('category') ? $this->Html->link($formation->category->nom, ['controller' => 'Categories', 'action' => 'view', $formation->category->id]) : '' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Frequence') ?></th>
@@ -61,6 +57,10 @@
             <td><?= $formation->has('status') ? $this->Html->link($formation->status->status, ['controller' => 'Statuss', 'action' => 'view', $formation->status->id]) : '' ?></td>
         </tr>
         <tr>
+            <th scope="row"><?= __('Id') ?></th>
+            <td><?= $this->Number->format($formation->id) ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Duree') ?></th>
             <td><?= $this->Number->format($formation->Duree) ?></td>
         </tr>
@@ -70,6 +70,7 @@
         <?php if (!empty($formation->employes)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
+                <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Numero') ?></th>
                 <th scope="col"><?= __('Nom') ?></th>
                 <th scope="col"><?= __('Prenom') ?></th>
@@ -80,12 +81,14 @@
                 <th scope="col"><?= __('Immeuble Id') ?></th>
                 <th scope="col"><?= __('Employe Id') ?></th>
                 <th scope="col"><?= __('Poste Id') ?></th>
+                <th scope="col"><?= __('Actif') ?></th>
                 <th scope="col"><?= __('Date Envoi Plan Formation') ?></th>
                 <th scope="col"><?= __('Informations Supplementaires') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($formation->employes as $employes): ?>
             <tr>
+                <td><?= h($employes->id) ?></td>
                 <td><?= h($employes->numero) ?></td>
                 <td><?= h($employes->nom) ?></td>
                 <td><?= h($employes->prenom) ?></td>
@@ -96,12 +99,36 @@
                 <td><?= h($employes->immeuble_id) ?></td>
                 <td><?= h($employes->employe_id) ?></td>
                 <td><?= h($employes->poste_id) ?></td>
+                <td><?= h($employes->actif) ?></td>
                 <td><?= h($employes->date_envoi_plan_formation) ?></td>
                 <td><?= h($employes->informations_supplementaires) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Employes', 'action' => 'view', $employes->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Employes', 'action' => 'edit', $employes->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['controller' => 'Employes', 'action' => 'delete', $employes->id], ['confirm' => __('Are you sure you want to delete # {0}?', $employes->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+    <div class="related">
+        <h4><?= __('Related Postes') ?></h4>
+        <?php if (!empty($formation->postes)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th scope="col"><?= __('Id') ?></th>
+                <th scope="col"><?= __('Titre') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($formation->postes as $postes): ?>
+            <tr>
+                <td><?= h($postes->id) ?></td>
+                <td><?= h($postes->titre) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'Postes', 'action' => 'view', $postes->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Postes', 'action' => 'edit', $postes->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Postes', 'action' => 'delete', $postes->id], ['confirm' => __('Are you sure you want to delete # {0}?', $postes->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

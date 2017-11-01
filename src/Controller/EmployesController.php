@@ -6,7 +6,7 @@ use App\Controller\AppController;
 
 use Cake\Mailer\Email;
 use Cake\I18n\Time;
-
+use Cake\ORM\TableRegistry;
 // reference the Dompdf namespace
 use Dompdf\Dompdf;
 /**
@@ -79,9 +79,31 @@ class EmployesController extends AppController
         if ($this->request->is('post')) {
             $employe = $this->Employes->patchEntity($employe, $this->request->getData());
             if ($this->Employes->save($employe)) {
-                $this->Flash->success(__('The employe has been saved.'));
+                
+                $select = $this->Employes->find()
+                    ->select([ 'id', 'Formations_Postes.formation_id'])
+                    ->hydrate(false)
+                    ->join([
+                        'table' => 'Formations_Postes',
+                        'type' => 'Inner',
+                        'conditions' => 'employes.poste_id = Formations_Postes.poste_id',
+                    ])
+                    ->where(['id' => $employe['id']]);
+        
+                $this->loadModel('EmployesFormations');
+                $query = $this->EmployesFormations->query()
+                        ->insert(['employe_id', 'formation_id'])
+                        ->values($select)
+                        ->execute();
+                
+                        
+                            $this->Flash->success(__('The employe has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                             return $this->redirect(['action' => 'index']);
+                       
+                            
+                
+                
             }
             $this->Flash->error(__('The employe could not be saved. Please, try again.'));
         }

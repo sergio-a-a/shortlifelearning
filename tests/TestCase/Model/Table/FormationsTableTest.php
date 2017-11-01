@@ -25,7 +25,6 @@ class FormationsTableTest extends TestCase
      */
     public $fixtures = [
         'app.formations',
-        'app.categories',
         'app.frequences',
         'app.debut_rappels',
         'app.modalites',
@@ -35,7 +34,8 @@ class FormationsTableTest extends TestCase
         'app.langues',
         'app.immeubles',
         'app.postes',
-        'app.employes_formations'
+        'app.employes_formations',
+        'app.formations_postes'
     ];
 
     /**

@@ -36,7 +36,7 @@ class PostesController extends AppController
     public function view($id = null)
     {
         $poste = $this->Postes->get($id, [
-            'contain' => ['Employes']
+            'contain' => ['Formations', 'Employes']
         ]);
 
         $this->set('poste', $poste);
@@ -60,7 +60,8 @@ class PostesController extends AppController
             }
             $this->Flash->error(__('The poste could not be saved. Please, try again.'));
         }
-        $this->set(compact('poste'));
+        $formations = $this->Postes->Formations->find('list', ['limit' => 200]);
+        $this->set(compact('poste', 'formations'));
         $this->set('_serialize', ['poste']);
     }
 
@@ -74,7 +75,7 @@ class PostesController extends AppController
     public function edit($id = null)
     {
         $poste = $this->Postes->get($id, [
-            'contain' => []
+            'contain' => ['Formations']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $poste = $this->Postes->patchEntity($poste, $this->request->getData());
@@ -85,7 +86,8 @@ class PostesController extends AppController
             }
             $this->Flash->error(__('The poste could not be saved. Please, try again.'));
         }
-        $this->set(compact('poste'));
+        $formations = $this->Postes->Formations->find('list', ['limit' => 200]);
+        $this->set(compact('poste', 'formations'));
         $this->set('_serialize', ['poste']);
     }
 

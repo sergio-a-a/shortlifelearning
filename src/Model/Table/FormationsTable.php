@@ -9,12 +9,12 @@ use Cake\Validation\Validator;
 /**
  * Formations Model
  *
- * @property \App\Model\Table\CategoriesTable|\Cake\ORM\Association\BelongsTo $Categories
  * @property \App\Model\Table\FrequencesTable|\Cake\ORM\Association\BelongsTo $Frequences
  * @property \App\Model\Table\DebutRappelsTable|\Cake\ORM\Association\BelongsTo $DebutRappels
  * @property \App\Model\Table\ModalitesTable|\Cake\ORM\Association\BelongsTo $Modalites
  * @property \App\Model\Table\StatussTable|\Cake\ORM\Association\BelongsTo $Statuss
  * @property \App\Model\Table\EmployesTable|\Cake\ORM\Association\BelongsToMany $Employes
+ * @property \App\Model\Table\PostesTable|\Cake\ORM\Association\BelongsToMany $Postes
  *
  * @method \App\Model\Entity\Formation get($primaryKey, $options = [])
  * @method \App\Model\Entity\Formation newEntity($data = null, array $options = [])
@@ -41,10 +41,6 @@ class FormationsTable extends Table
         $this->setDisplayField('Titre');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('Categories', [
-            'foreignKey' => 'categorie_id',
-            'joinType' => 'INNER'
-        ]);
         $this->belongsTo('Frequences', [
             'foreignKey' => 'frequence_id',
             'joinType' => 'INNER'
@@ -65,6 +61,11 @@ class FormationsTable extends Table
             'foreignKey' => 'formation_id',
             'targetForeignKey' => 'employe_id',
             'joinTable' => 'employes_formations'
+        ]);
+        $this->belongsToMany('Postes', [
+            'foreignKey' => 'formation_id',
+            'targetForeignKey' => 'poste_id',
+            'joinTable' => 'formations_postes'
         ]);
     }
 
@@ -111,7 +112,6 @@ class FormationsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['categorie_id'], 'Categories'));
         $rules->add($rules->existsIn(['frequence_id'], 'Frequences'));
         $rules->add($rules->existsIn(['Debut_rappel_id'], 'DebutRappels'));
         $rules->add($rules->existsIn(['modalite_id'], 'Modalites'));

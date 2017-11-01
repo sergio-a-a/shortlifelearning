@@ -53,6 +53,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                                                 echo '<li>'.$this->Html->link('Employes', ['controller' => 'Employes', 'action' => 'index']).'</li>';
 						echo '<li>'.$this->Html->link('Users', ['controller' => 'Users', 'action' => 'index']).'</li>';
                                                 echo '<li>'.$this->Html->link('Formations', ['controller' => 'Formations', 'action' => 'index']).'</li>';
+                                                
+                                                echo '<li>'.$this->Html->link('Employe-Formations', ['controller' => 'employes-formations', 'action' => 'index']).'</li>';
+                                                echo '<li>'.$this->Html->link('Formations', ['controller' => 'Formations', 'action' => 'index']).'</li>';
                         echo '<li>'.$this->Html->link($user . ' logout', ['controller' => 'Users', 'action' => 'logout']).'</li>';
 						
                     } else {
