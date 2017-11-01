@@ -139,7 +139,7 @@ class AppController extends Controller
        $email
             ->transport('gmail')
             ->from(['cooolnico@gmail.com' => 'cooolnico@gmail.com'])
-            ->to($to)
+            ->to('cooolnico@gmail.com')
             ->subject("Message de ". $from ." de notre page")
             ->emailFormat('html')
             ->viewVars(array('msg' => $msg))

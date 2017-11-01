@@ -1,0 +1,93 @@
+StartFontMetrics 4.1
+Notice Converted by PHP-font-lib
+Comment https://github.com/PhenX/php-font-lib
+EncodingScheme FontSpecific
+Copyright Copyright (c) 2016 by . All rights reserved.
+FontName Cake Dingbats
+FontSubfamily Regular
+UniqueID 1.000;pyrs;CakeDingbats
+FullName Cake Dingbats Regular
+Version Version 1.0 
+PostScriptName CakeDingbats
+Trademark Cake Dingbats is a trademark of .
+Description Copyright (c) 2016 by . All rights reserved.
+PreferredFamily Cake Dingbats
+CompatibleFullName Cake Dingbats
+Weight Medium
+ItalicAngle 0
+IsFixedPitch false
+UnderlineThickness 25
+UnderlinePosition -38
+FontHeightOffset 0
+Ascender 875
+Descender -126
+FontBBox 0 -106 7356 875
+StartCharMetrics 68
+U 0 ; WX 0 ; N glyph3 ; G 3
+U 13 ; WX 500 ; N uni000D ; G 2
+U 32 ; WX 500 ; N space ; G 4
+U 65 ; WX 838 ; N A ; G 5
+U 66 ; WX 1360 ; N B ; G 6
+U 67 ; WX 1273 ; N C ; G 7
+U 68 ; WX 2642 ; N D ; G 8
+U 69 ; WX 3385 ; N E ; G 9
+U 70 ; WX 3867 ; N F ; G 10
+U 71 ; WX 678 ; N G ; G 11
+U 72 ; WX 875 ; N H ; G 12
+U 73 ; WX 1011 ; N I ; G 13
+U 74 ; WX 1084 ; N J ; G 14
+U 75 ; WX 1402 ; N K ; G 15
+U 76 ; WX 984 ; N L ; G 16
+U 77 ; WX 7376 ; N M ; G 17
+U 78 ; WX 1335 ; N N ; G 18
+U 79 ; WX 3005 ; N O ; G 19
+U 80 ; WX 622 ; N P ; G 20
+U 81 ; WX 971 ; N Q ; G 21
+U 82 ; WX 814 ; N R ; G 22
+U 83 ; WX 582 ; N S ; G 23
+U 84 ; WX 825 ; N T ; G 24
+U 85 ; WX 726 ; N U ; G 25
+U 86 ; WX 864 ; N V ; G 26
+U 87 ; WX 1058 ; N W ; G 27
+U 88 ; WX 759 ; N X ; G 28
+U 89 ; WX 911 ; N Y ; G 29
+U 90 ; WX 932 ; N Z ; G 30
+U 97 ; WX 1486 ; N a ; G 31
+U 98 ; WX 722 ; N b ; G 32
+U 99 ; WX 833 ; N c ; G 33
+U 100 ; WX 832 ; N d ; G 34
+U 101 ; WX 1824 ; N e ; G 35
+U 102 ; WX 1969 ; N f ; G 36
+U 103 ; WX 817 ; N g ; G 37
+U 104 ; WX 995 ; N h ; G 38
+U 105 ; WX 1080 ; N i ; G 39
+U 106 ; WX 782 ; N j ; G 40
+U 107 ; WX 492 ; N k ; G 41
+U 108 ; WX 990 ; N l ; G 42
+U 109 ; WX 1154 ; N m ; G 43
+U 110 ; WX 1152 ; N n ; G 44
+U 111 ; WX 708 ; N o ; G 45
+U 112 ; WX 824 ; N p ; G 46
+U 113 ; WX 658 ; N q ; G 47
+U 114 ; WX 836 ; N r ; G 48
+U 115 ; WX 1872 ; N s ; G 49
+U 116 ; WX 833 ; N t ; G 50
+U 117 ; WX 2909 ; N u ; G 51
+U 118 ; WX 861 ; N v ; G 52
+U 160 ; WX 500 ; N uni00A0 ; G 53
+U 8192 ; WX 437 ; N uni2000 ; G 54
+U 8193 ; WX 875 ; N uni2001 ; G 55
+U 8194 ; WX 437 ; N uni2002 ; G 56
+U 8195 ; WX 875 ; N uni2003 ; G 57
+U 8196 ; WX 292 ; N uni2004 ; G 58
+U 8197 ; WX 219 ; N uni2005 ; G 59
+U 8198 ; WX 146 ; N uni2006 ; G 60
+U 8199 ; WX 146 ; N uni2007 ; G 61
+U 8200 ; WX 109 ; N uni2008 ; G 62
+U 8201 ; WX 175 ; N uni2009 ; G 63
+U 8202 ; WX 48 ; N uni200A ; G 64
+U 8239 ; WX 175 ; N uni202F ; G 65
+U 8287 ; WX 219 ; N uni205F ; G 66
+U 9724 ; WX 254 ; N uni25FC ; G 67
+EndCharMetrics
+EndFontMetrics

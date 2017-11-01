@@ -267,7 +267,7 @@ return [
              */
             //'port' => 'non_standard_port_number',
             'username' => 'root',
-            'password' => 'root',
+            'password' => 'mysql',
             'database' => 'longlifelearning',
             'encoding' => 'utf8',
             'timezone' => 'UTC',

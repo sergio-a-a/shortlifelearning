@@ -57,7 +57,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                                                 echo '<li>'.$this->Html->link('Employe-Formations', ['controller' => 'employes-formations', 'action' => 'index']).'</li>';
                                                 echo '<li>'.$this->Html->link('Formations', ['controller' => 'Formations', 'action' => 'index']).'</li>';
                         echo '<li>'.$this->Html->link($user . ' logout', ['controller' => 'Users', 'action' => 'logout']).'</li>';
-						
+			if ($loguser['role_id'] == 1){
+                            echo '<li>'.$this->Html->link('Administration', ['controller' => 'Administration', 'action' => 'index']).'</li>';
+                        }	
                     } else {
                         echo "<li>".$this->Html->link('login', ['controller' => 'Users', 'action' => 'login'])."</li>";
                     } 
