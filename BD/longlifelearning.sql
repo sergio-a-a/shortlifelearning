@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
--- https://www.phpmyadmin.net/
+-- version 4.4.15.9
+-- https://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 01, 2017 at 12:10 AM
--- Server version: 5.7.17
--- PHP Version: 5.6.30
+-- Client :  localhost
+-- Généré le :  Mer 01 Novembre 2017 à 15:52
+-- Version du serveur :  5.6.35
+-- Version de PHP :  5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,22 +17,22 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `longlifelearning`
+-- Base de données :  `longlifelearning`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
+-- Structure de la table `categories`
 --
 
-CREATE TABLE `categories` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `categories` (
+  `id` int(10) unsigned NOT NULL,
   `nom` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `categories`
+-- Contenu de la table `categories`
 --
 
 INSERT INTO `categories` (`id`, `nom`) VALUES
@@ -48,16 +46,16 @@ INSERT INTO `categories` (`id`, `nom`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `civilites`
+-- Structure de la table `civilites`
 --
 
-CREATE TABLE `civilites` (
+CREATE TABLE IF NOT EXISTS `civilites` (
   `id` int(11) NOT NULL,
   `nom` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `civilites`
+-- Contenu de la table `civilites`
 --
 
 INSERT INTO `civilites` (`id`, `nom`) VALUES
@@ -68,16 +66,16 @@ INSERT INTO `civilites` (`id`, `nom`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `debut_rappels`
+-- Structure de la table `debut_rappels`
 --
 
-CREATE TABLE `debut_rappels` (
-  `id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+CREATE TABLE IF NOT EXISTS `debut_rappels` (
+  `id` int(10) unsigned NOT NULL DEFAULT '0',
   `nom` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `debut_rappels`
+-- Contenu de la table `debut_rappels`
 --
 
 INSERT INTO `debut_rappels` (`id`, `nom`) VALUES
@@ -96,10 +94,10 @@ INSERT INTO `debut_rappels` (`id`, `nom`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `employes`
+-- Structure de la table `employes`
 --
 
-CREATE TABLE `employes` (
+CREATE TABLE IF NOT EXISTS `employes` (
   `id` int(11) NOT NULL,
   `numero` varchar(10) NOT NULL,
   `nom` varchar(255) NOT NULL,
@@ -114,32 +112,32 @@ CREATE TABLE `employes` (
   `actif` tinyint(1) NOT NULL,
   `date_envoi_plan_formation` date DEFAULT NULL,
   `informations_supplementaires` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `employes`
+-- Contenu de la table `employes`
 --
 
 INSERT INTO `employes` (`id`, `numero`, `nom`, `prenom`, `civilite_id`, `cellulaire`, `courriel`, `langue_id`, `immeuble_id`, `employe_id`, `poste_id`, `actif`, `date_envoi_plan_formation`, `informations_supplementaires`) VALUES
 (16, 'Sergio', 'sdafadsf', 'sdfasdfas', 1, '', 'sergio.b.arevalo@gmail.com', 1, 1, 17, 1, 1, '2017-10-31', ''),
-(17, '123456879', 'nicholas', 'chartier', 1, '', 'cooolnico@hotmail.com', 1, 1, 16, 1, 1, '2017-10-31', ''),
-(20, 'Tessssssss', 'Nonthing', 'Aucun', 2, '1236361234', 'sergio.b.arevalo@gmail.com', 1, 1, 16, 1, 0, NULL, '');
+(17, '123456879', 'nicholas', 'chartier', 1, '', 'cooolnico@hotmail.com', 1, 1, 16, 2, 1, '2017-10-31', ''),
+(20, 'Tessssssss', 'Nonthing', 'Aucun', 2, '1236361234', 'sergio.b.arevalo@gmail.com', 1, 1, 16, 3, 0, NULL, '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `employes_formations`
+-- Structure de la table `employes_formations`
 --
 
-CREATE TABLE `employes_formations` (
+CREATE TABLE IF NOT EXISTS `employes_formations` (
   `id` int(11) NOT NULL,
   `employe_id` int(11) NOT NULL,
   `formation_id` int(11) NOT NULL,
   `done` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
 
 --
--- Dumping data for table `employes_formations`
+-- Contenu de la table `employes_formations`
 --
 
 INSERT INTO `employes_formations` (`id`, `employe_id`, `formation_id`, `done`) VALUES
@@ -147,56 +145,80 @@ INSERT INTO `employes_formations` (`id`, `employe_id`, `formation_id`, `done`) V
 (17, 16, 22, '2012-11-11 10:10:00'),
 (18, 17, 21, '2018-09-09 11:11:00'),
 (19, 17, 22, '2013-11-12 10:10:00'),
-(20, 20, 21, NULL),
 (21, 16, 24, '2017-09-25 08:09:00'),
 (22, 17, 24, NULL),
-(23, 20, 24, NULL),
 (24, 16, 25, NULL),
 (25, 17, 25, NULL),
-(26, 20, 25, NULL);
+(27, 20, 21, NULL),
+(28, 20, 22, NULL),
+(29, 20, 24, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `formations`
+-- Structure de la table `formations`
 --
 
-CREATE TABLE `formations` (
+CREATE TABLE IF NOT EXISTS `formations` (
   `id` int(11) NOT NULL,
   `numero` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `Titre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `categorie_id` int(11) NOT NULL,
+  `poste_id` int(11) NOT NULL,
   `frequence_id` int(11) NOT NULL,
   `Debut_rappel_id` int(11) NOT NULL,
   `modalite_id` int(11) NOT NULL,
   `Duree` decimal(10,2) NOT NULL,
   `Remarques` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `satus_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `satus_id` int(11) NOT NULL,
+  `categorie_id` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `formations`
+-- Contenu de la table `formations`
 --
 
-INSERT INTO `formations` (`id`, `numero`, `Titre`, `categorie_id`, `frequence_id`, `Debut_rappel_id`, `modalite_id`, `Duree`, `Remarques`, `satus_id`) VALUES
-(21, '123456789', 'Windows', 4, 1, 1, 1, '5.00', '', 1),
-(22, '123456788', 'Linux', 1, 1, 1, 3, '10.00', '', 1),
-(24, 'dawdwa123', 'Sécurité au bureau', 1, 7, 1, 1, '5.00', '', 1),
-(25, 'dwaawjdw312', 'Équipement de la proteciton', 3, 10, 4, 1, '6.00', '', 1);
+INSERT INTO `formations` (`id`, `numero`, `Titre`, `poste_id`, `frequence_id`, `Debut_rappel_id`, `modalite_id`, `Duree`, `Remarques`, `satus_id`, `categorie_id`) VALUES
+(21, '123456789', 'Windows', 4, 1, 1, 1, '5.00', '', 1, 1),
+(22, '123456788', 'Linux', 1, 1, 1, 3, '10.00', '', 1, 2),
+(24, 'dawdwa123', 'Sécurité au bureau', 1, 7, 1, 1, '5.00', '', 1, 3),
+(25, 'dwaawjdw312', 'Équipement de la proteciton', 3, 10, 4, 1, '6.00', '', 1, 4);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `frequences`
+-- Structure de la table `formations_postes`
 --
 
-CREATE TABLE `frequences` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `formations_postes` (
+  `poste_id` int(11) NOT NULL,
+  `formation_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `formations_postes`
+--
+
+INSERT INTO `formations_postes` (`poste_id`, `formation_id`) VALUES
+(1, 21),
+(2, 21),
+(2, 22),
+(3, 21),
+(3, 22),
+(3, 24);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `frequences`
+--
+
+CREATE TABLE IF NOT EXISTS `frequences` (
+  `id` int(10) unsigned NOT NULL,
   `nom` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `frequences`
+-- Contenu de la table `frequences`
 --
 
 INSERT INTO `frequences` (`id`, `nom`) VALUES
@@ -215,16 +237,16 @@ INSERT INTO `frequences` (`id`, `nom`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `immeubles`
+-- Structure de la table `immeubles`
 --
 
-CREATE TABLE `immeubles` (
+CREATE TABLE IF NOT EXISTS `immeubles` (
   `id` int(11) NOT NULL,
   `address` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `immeubles`
+-- Contenu de la table `immeubles`
 --
 
 INSERT INTO `immeubles` (`id`, `address`) VALUES
@@ -235,16 +257,16 @@ INSERT INTO `immeubles` (`id`, `address`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `langues`
+-- Structure de la table `langues`
 --
 
-CREATE TABLE `langues` (
+CREATE TABLE IF NOT EXISTS `langues` (
   `id` int(11) NOT NULL,
   `nom` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `langues`
+-- Contenu de la table `langues`
 --
 
 INSERT INTO `langues` (`id`, `nom`) VALUES
@@ -254,16 +276,16 @@ INSERT INTO `langues` (`id`, `nom`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `modalites`
+-- Structure de la table `modalites`
 --
 
-CREATE TABLE `modalites` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `modalites` (
+  `id` int(10) unsigned NOT NULL,
   `nom` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `modalites`
+-- Contenu de la table `modalites`
 --
 
 INSERT INTO `modalites` (`id`, `nom`) VALUES
@@ -274,16 +296,16 @@ INSERT INTO `modalites` (`id`, `nom`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `postes`
+-- Structure de la table `postes`
 --
 
-CREATE TABLE `postes` (
+CREATE TABLE IF NOT EXISTS `postes` (
   `id` int(11) NOT NULL,
   `titre` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `postes`
+-- Contenu de la table `postes`
 --
 
 INSERT INTO `postes` (`id`, `titre`) VALUES
@@ -293,25 +315,25 @@ INSERT INTO `postes` (`id`, `titre`) VALUES
 (4, 'Coordonnatrice contrôle des projets\r\n'),
 (5, 'Gestionnaire support technique\r\n'),
 (6, 'Etudiant / Stagiaire (Tech)\r\n'),
-(7, 'Coordonateur service à l\'immeuble\r\n'),
+(7, 'Coordonateur service à l''immeuble\r\n'),
 (8, 'Coordonnateur santé sécurité\r\n'),
 (9, 'Adjointe administrative\r\n'),
 (10, 'Gestionnaire de projet\r\n'),
-(11, 'Gestionnaire d\'équipe de projet\r\n');
+(11, 'Gestionnaire d''équipe de projet\r\n');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
+-- Structure de la table `roles`
 --
 
-CREATE TABLE `roles` (
+CREATE TABLE IF NOT EXISTS `roles` (
   `id` int(11) NOT NULL,
   `role` varchar(20) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `roles`
+-- Contenu de la table `roles`
 --
 
 INSERT INTO `roles` (`id`, `role`) VALUES
@@ -321,16 +343,16 @@ INSERT INTO `roles` (`id`, `role`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `statuss`
+-- Structure de la table `statuss`
 --
 
-CREATE TABLE `statuss` (
+CREATE TABLE IF NOT EXISTS `statuss` (
   `id` int(11) NOT NULL,
   `status` varchar(30) CHARACTER SET latin1 NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `statuss`
+-- Contenu de la table `statuss`
 --
 
 INSERT INTO `statuss` (`id`, `status`) VALUES
@@ -340,10 +362,10 @@ INSERT INTO `statuss` (`id`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Structure de la table `users`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -352,10 +374,10 @@ CREATE TABLE `users` (
   `role_id` int(1) NOT NULL,
   `created` datetime DEFAULT CURRENT_TIMESTAMP,
   `modified` datetime DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `users`
+-- Contenu de la table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `nom`, `email`, `role_id`, `created`, `modified`) VALUES
@@ -364,36 +386,36 @@ INSERT INTO `users` (`id`, `username`, `password`, `nom`, `email`, `role_id`, `c
 (7, 'coor', '$2y$10$/OLTv7LDGBlaMMueWxg91Ofc0ns7TotL3eCIobV7VC4bgbiD9D0Ii', 'coordonateur', 'coord@hotmail.com', 2, '2017-09-20 18:33:04', '2017-09-20 18:33:04');
 
 --
--- Indexes for dumped tables
+-- Index pour les tables exportées
 --
 
 --
--- Indexes for table `categories`
+-- Index pour la table `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nom` (`nom`);
 
 --
--- Indexes for table `civilites`
+-- Index pour la table `civilites`
 --
 ALTER TABLE `civilites`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `debut_rappels`
+-- Index pour la table `debut_rappels`
 --
 ALTER TABLE `debut_rappels`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `employes`
+-- Index pour la table `employes`
 --
 ALTER TABLE `employes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `employes_formations`
+-- Index pour la table `employes_formations`
 --
 ALTER TABLE `employes_formations`
   ADD PRIMARY KEY (`id`),
@@ -401,59 +423,67 @@ ALTER TABLE `employes_formations`
   ADD KEY `employes_formations_ibfk_2` (`formation_id`);
 
 --
--- Indexes for table `formations`
+-- Index pour la table `formations`
 --
 ALTER TABLE `formations`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `satus_id` (`satus_id`);
+  ADD KEY `satus_id` (`satus_id`),
+  ADD KEY `poste_id` (`poste_id`);
 
 --
--- Indexes for table `frequences`
+-- Index pour la table `formations_postes`
+--
+ALTER TABLE `formations_postes`
+  ADD KEY `poste_id` (`poste_id`),
+  ADD KEY `formation_id` (`formation_id`);
+
+--
+-- Index pour la table `frequences`
 --
 ALTER TABLE `frequences`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nom` (`nom`);
 
 --
--- Indexes for table `immeubles`
+-- Index pour la table `immeubles`
 --
 ALTER TABLE `immeubles`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `langues`
+-- Index pour la table `langues`
 --
 ALTER TABLE `langues`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `modalites`
+-- Index pour la table `modalites`
 --
 ALTER TABLE `modalites`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nom` (`nom`);
 
 --
--- Indexes for table `postes`
+-- Index pour la table `postes`
 --
 ALTER TABLE `postes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `roles`
+-- Index pour la table `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `ID` (`id`);
 
 --
--- Indexes for table `statuss`
+-- Index pour la table `statuss`
 --
 ALTER TABLE `statuss`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
+-- Index pour la table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
@@ -461,86 +491,93 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT pour les tables exportées
 --
 
 --
--- AUTO_INCREMENT for table `categories`
+-- AUTO_INCREMENT pour la table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT for table `civilites`
+-- AUTO_INCREMENT pour la table `civilites`
 --
 ALTER TABLE `civilites`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT for table `employes`
+-- AUTO_INCREMENT pour la table `employes`
 --
 ALTER TABLE `employes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 --
--- AUTO_INCREMENT for table `employes_formations`
+-- AUTO_INCREMENT pour la table `employes_formations`
 --
 ALTER TABLE `employes_formations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
 --
--- AUTO_INCREMENT for table `formations`
+-- AUTO_INCREMENT pour la table `formations`
 --
 ALTER TABLE `formations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 --
--- AUTO_INCREMENT for table `frequences`
+-- AUTO_INCREMENT pour la table `frequences`
 --
 ALTER TABLE `frequences`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
--- AUTO_INCREMENT for table `immeubles`
+-- AUTO_INCREMENT pour la table `immeubles`
 --
 ALTER TABLE `immeubles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT for table `langues`
+-- AUTO_INCREMENT pour la table `langues`
 --
 ALTER TABLE `langues`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `modalites`
+-- AUTO_INCREMENT pour la table `modalites`
 --
 ALTER TABLE `modalites`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT for table `postes`
+-- AUTO_INCREMENT pour la table `postes`
 --
 ALTER TABLE `postes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
--- AUTO_INCREMENT for table `statuss`
+-- AUTO_INCREMENT pour la table `statuss`
 --
 ALTER TABLE `statuss`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
--- Constraints for dumped tables
+-- Contraintes pour les tables exportées
 --
 
 --
--- Constraints for table `employes_formations`
+-- Contraintes pour la table `employes_formations`
 --
 ALTER TABLE `employes_formations`
   ADD CONSTRAINT `employes_formations_ibfk_1` FOREIGN KEY (`employe_id`) REFERENCES `employes` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `employes_formations_ibfk_2` FOREIGN KEY (`formation_id`) REFERENCES `formations` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `formations`
+-- Contraintes pour la table `formations`
 --
 ALTER TABLE `formations`
-  ADD CONSTRAINT `formations_ibfk_1` FOREIGN KEY (`satus_id`) REFERENCES `statuss` (`id`);
-COMMIT;
+  ADD CONSTRAINT `formations_ibfk_1` FOREIGN KEY (`satus_id`) REFERENCES `statuss` (`id`),
+  ADD CONSTRAINT `formations_ibfk_2` FOREIGN KEY (`poste_id`) REFERENCES `postes` (`id`);
+
+--
+-- Contraintes pour la table `formations_postes`
+--
+ALTER TABLE `formations_postes`
+  ADD CONSTRAINT `formations_postes_ibfk_1` FOREIGN KEY (`poste_id`) REFERENCES `postes` (`id`),
+  ADD CONSTRAINT `formations_postes_ibfk_2` FOREIGN KEY (`formation_id`) REFERENCES `formations` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

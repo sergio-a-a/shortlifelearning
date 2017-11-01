@@ -129,11 +129,35 @@ class EmployesController extends AppController
         $employe = $this->Employes->get($id, [
             'contain' => ['Formations']
         ]);
+        $old = $this->Employes->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
+            $test = $this->request->getData('poste_id');
+            echo "old" + $test;
             $employe = $this->Employes->patchEntity($employe, $this->request->getData());
             if ($this->Employes->save($employe)) {
-                $this->Flash->success(__('The employe has been saved.'));
-
+               
+                
+                
+                if($test != $old['poste_id']){
+                    
+                    $select = $this->Employes->find()
+                    ->select([ 'id', 'Formations_Postes.formation_id'])
+                    ->hydrate(false)
+                    ->join([
+                        'table' => 'Formations_Postes',
+                        'type' => 'Inner',
+                        'conditions' => 'employes.poste_id = Formations_Postes.poste_id',
+                    ])
+                    ->where(['id' => $employe['id']]);
+        
+                $this->loadModel('EmployesFormations');
+                $query = $this->EmployesFormations->query()
+                        ->insert(['employe_id', 'formation_id'])
+                        ->values($select)
+                        ->execute();
+                     $this->Flash->success(__('The employe has been saved.'));
+                }
+                
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The employe could not be saved. Please, try again.'));

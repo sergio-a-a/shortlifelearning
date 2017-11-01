@@ -23,8 +23,17 @@ class FormationsController extends AppController
         $this->paginate = [
             'contain' => ['Frequences', 'DebutRappels', 'Modalites', 'Statuss']
         ];
-        $formations = $this->paginate($this->Formations);
+       
+        
+        if (!empty($this->request->data['search'])) {
+            $formations = $this->paginate($this->Formations->find()->where(["OR" => [
+                "formations.numero LIKE" => $this->request->data['search'],
+                "formations.titre LIKE" => $this->request->data['search']                
+                ]]));
+        }else{
+            $formations = $this->paginate($this->Formations);
             
+        }         
         
         
         

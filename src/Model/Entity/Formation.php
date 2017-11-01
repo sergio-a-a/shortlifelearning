@@ -9,12 +9,14 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $numero
  * @property string $Titre
+ * @property int $poste_id
  * @property int $frequence_id
  * @property int $Debut_rappel_id
  * @property int $modalite_id
  * @property float $Duree
  * @property string $Remarques
  * @property int $satus_id
+ * @property int $categorie_id
  *
  * @property \App\Model\Entity\Frequence $frequence
  * @property \App\Model\Entity\DebutRappel $debut_rappel
@@ -38,12 +40,14 @@ class Formation extends Entity
     protected $_accessible = [
         'numero' => true,
         'Titre' => true,
+        'poste_id' => true,
         'frequence_id' => true,
         'Debut_rappel_id' => true,
         'modalite_id' => true,
         'Duree' => true,
         'Remarques' => true,
         'satus_id' => true,
+        'categorie_id' => true,
         'frequence' => true,
         'debut_rappel' => true,
         'modalite' => true,
