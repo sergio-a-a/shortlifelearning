@@ -29,11 +29,19 @@
             <td><?= $employesFormation->has('formation') ? $this->Html->link($employesFormation->formation->Titre, ['controller' => 'Formations', 'action' => 'view', $employesFormation->formation->id]) : '' ?></td>
         </tr>
         <tr>
+            <th scope="row"><?= __('Remarque') ?></th>
+            <td><?= h($employesFormation->Remarque) ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Id') ?></th>
             <td><?= $this->Number->format($employesFormation->id) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('faite le : ') ?></th>
+            <th scope="row"><?= __('Piece Id') ?></th>
+            <td><?= $this->Number->format($employesFormation->piece_id) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Done') ?></th>
             <td><?= h($employesFormation->done) ?></td>
         </tr>
     </table>

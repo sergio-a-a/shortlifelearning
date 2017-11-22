@@ -28,6 +28,7 @@ class EmployesFormationsController extends AppController
         $this->set(compact('employesFormations'));
         $this->set('_serialize', ['employesFormations']);
     }
+    
 
     /**
      * View method
@@ -114,5 +115,58 @@ class EmployesFormationsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+    
+    public function getByManifacturer() {
+        $manifacturers_id = $this->request->query('employe_id');
+
+        $models = $this->Formations->find('all', [
+            'conditions' => ['Models.manifacturers_id' => $manifacturers_id],
+        ]);
+        $this->set('Models',$models);
+    }
+    
+    public function maj()
+    {
+        $employesFormation = $this->EmployesFormations->newEntity();
+        /*$employesFormation = $this->EmployesFormations->get($id, [
+            'contain' => []
+        ]);*/
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $employesFormation = $this->EmployesFormations->patchEntity($employesFormation, $this->request->getData());
+            if ($this->EmployesFormations->save($employesFormation)) {
+                $this->Flash->success(__('The employes formation has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The employes formation could not be saved. Please, try again.'));
+        }
+        
+        $employes = $this->EmployesFormations->Employes->find('list', ['limit' => 200]);
+        
+        $employes = $employes->toArray();
+        reset($employes);
+        $employe_id = key($employes);
+        
+        $employesformations = $this->EmployesFormations->find('list', [
+            'conditions' => ['EmployesFormations.employe_id' => $employe_id],
+        ]);
+        
+        /*$employesformations = $employesformations->toArray();
+        reset($employesformations);
+        $model_id = key($employesformations);
+        
+        $vehicules = $this->Booking->Vehicules->find('list', [
+            'conditions' => ['vehicules.model_id' => $model_id],
+        ]);*/
+        
+        
+        
+        
+        
+        
+        $formations = $this->EmployesFormations->Formations->find('list', ['limit' => 200]);
+        $this->set(compact('employesformations','employesFormation', 'employes', 'formations'));
+        $this->set('_serialize', ['employesFormation']);
     }
 }

@@ -11,6 +11,7 @@ use Cake\Validation\Validator;
  *
  * @property \App\Model\Table\EmployesTable|\Cake\ORM\Association\BelongsTo $Employes
  * @property \App\Model\Table\FormationsTable|\Cake\ORM\Association\BelongsTo $Formations
+ * @property |\Cake\ORM\Association\BelongsTo $Pieces
  *
  * @method \App\Model\Entity\EmployesFormation get($primaryKey, $options = [])
  * @method \App\Model\Entity\EmployesFormation newEntity($data = null, array $options = [])
@@ -45,6 +46,9 @@ class EmployesFormationsTable extends Table
             'foreignKey' => 'formation_id',
             'joinType' => 'INNER'
         ]);
+        $this->belongsTo('Pieces', [
+            'foreignKey' => 'piece_id'
+        ]);
     }
 
     /**
@@ -62,7 +66,11 @@ class EmployesFormationsTable extends Table
         $validator
             ->dateTime('done')
             ->allowEmpty('done');
-        
+
+        $validator
+            ->scalar('Remarque')
+            ->requirePresence('Remarque', 'create')
+            ->notEmpty('Remarque');
 
         return $validator;
     }
@@ -78,6 +86,7 @@ class EmployesFormationsTable extends Table
     {
         $rules->add($rules->existsIn(['employe_id'], 'Employes'));
         $rules->add($rules->existsIn(['formation_id'], 'Formations'));
+        $rules->add($rules->existsIn(['piece_id'], 'Pieces'));
 
         return $rules;
     }

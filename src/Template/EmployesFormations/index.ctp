@@ -22,7 +22,9 @@
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('employe_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('formation_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('done', ['label' => 'faite le']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('done') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Remarque') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('piece_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -33,6 +35,8 @@
                 <td><?= $employesFormation->has('employe') ? $this->Html->link($employesFormation->employe->nom, ['controller' => 'Employes', 'action' => 'view', $employesFormation->employe->id]) : '' ?></td>
                 <td><?= $employesFormation->has('formation') ? $this->Html->link($employesFormation->formation->Titre, ['controller' => 'Formations', 'action' => 'view', $employesFormation->formation->id]) : '' ?></td>
                 <td><?= h($employesFormation->done) ?></td>
+                <td><?= h($employesFormation->Remarque) ?></td>
+                <td><?= $this->Number->format($employesFormation->piece_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $employesFormation->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $employesFormation->id]) ?>

@@ -10,6 +10,8 @@ use Cake\ORM\Entity;
  * @property int $employe_id
  * @property int $formation_id
  * @property \Cake\I18n\FrozenTime $done
+ * @property string $Remarque
+ * @property int $piece_id
  *
  * @property \App\Model\Entity\Employe $employe
  * @property \App\Model\Entity\Formation $formation
@@ -30,6 +32,8 @@ class EmployesFormation extends Entity
         'employe_id' => true,
         'formation_id' => true,
         'done' => true,
+        'Remarque' => true,
+        'piece_id' => true,
         'employe' => true,
         'formation' => true
     ];
