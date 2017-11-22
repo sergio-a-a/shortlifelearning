@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.15.9
--- https://www.phpmyadmin.net
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
 --
--- Client :  localhost
--- Généré le :  Mer 01 Novembre 2017 à 15:52
--- Version du serveur :  5.6.35
+-- Hôte : 127.0.0.1
+-- Généré le :  mer. 22 nov. 2017 à 22:54
+-- Version du serveur :  5.7.17
 -- Version de PHP :  5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `longlifelearning`
+-- Base de données :  `lifelonglearning`
 --
 
 -- --------------------------------------------------------
@@ -26,13 +28,13 @@ SET time_zone = "+00:00";
 -- Structure de la table `categories`
 --
 
-CREATE TABLE IF NOT EXISTS `categories` (
-  `id` int(10) unsigned NOT NULL,
+CREATE TABLE `categories` (
+  `id` int(10) UNSIGNED NOT NULL,
   `nom` varchar(255) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `categories`
+-- Déchargement des données de la table `categories`
 --
 
 INSERT INTO `categories` (`id`, `nom`) VALUES
@@ -49,13 +51,13 @@ INSERT INTO `categories` (`id`, `nom`) VALUES
 -- Structure de la table `civilites`
 --
 
-CREATE TABLE IF NOT EXISTS `civilites` (
+CREATE TABLE `civilites` (
   `id` int(11) NOT NULL,
   `nom` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `civilites`
+-- Déchargement des données de la table `civilites`
 --
 
 INSERT INTO `civilites` (`id`, `nom`) VALUES
@@ -69,13 +71,13 @@ INSERT INTO `civilites` (`id`, `nom`) VALUES
 -- Structure de la table `debut_rappels`
 --
 
-CREATE TABLE IF NOT EXISTS `debut_rappels` (
-  `id` int(10) unsigned NOT NULL DEFAULT '0',
+CREATE TABLE `debut_rappels` (
+  `id` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `nom` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `debut_rappels`
+-- Déchargement des données de la table `debut_rappels`
 --
 
 INSERT INTO `debut_rappels` (`id`, `nom`) VALUES
@@ -97,7 +99,7 @@ INSERT INTO `debut_rappels` (`id`, `nom`) VALUES
 -- Structure de la table `employes`
 --
 
-CREATE TABLE IF NOT EXISTS `employes` (
+CREATE TABLE `employes` (
   `id` int(11) NOT NULL,
   `numero` varchar(10) NOT NULL,
   `nom` varchar(255) NOT NULL,
@@ -112,10 +114,10 @@ CREATE TABLE IF NOT EXISTS `employes` (
   `actif` tinyint(1) NOT NULL,
   `date_envoi_plan_formation` date DEFAULT NULL,
   `informations_supplementaires` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `employes`
+-- Déchargement des données de la table `employes`
 --
 
 INSERT INTO `employes` (`id`, `numero`, `nom`, `prenom`, `civilite_id`, `cellulaire`, `courriel`, `langue_id`, `immeuble_id`, `employe_id`, `poste_id`, `actif`, `date_envoi_plan_formation`, `informations_supplementaires`) VALUES
@@ -129,29 +131,31 @@ INSERT INTO `employes` (`id`, `numero`, `nom`, `prenom`, `civilite_id`, `cellula
 -- Structure de la table `employes_formations`
 --
 
-CREATE TABLE IF NOT EXISTS `employes_formations` (
+CREATE TABLE `employes_formations` (
   `id` int(11) NOT NULL,
   `employe_id` int(11) NOT NULL,
   `formation_id` int(11) NOT NULL,
-  `done` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
+  `done` datetime DEFAULT NULL,
+  `Remarque` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `piece_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
 
 --
--- Contenu de la table `employes_formations`
+-- Déchargement des données de la table `employes_formations`
 --
 
-INSERT INTO `employes_formations` (`id`, `employe_id`, `formation_id`, `done`) VALUES
-(16, 16, 21, '2012-11-11 10:10:00'),
-(17, 16, 22, '2012-11-11 10:10:00'),
-(18, 17, 21, '2018-09-09 11:11:00'),
-(19, 17, 22, '2013-11-12 10:10:00'),
-(21, 16, 24, '2017-09-25 08:09:00'),
-(22, 17, 24, NULL),
-(24, 16, 25, NULL),
-(25, 17, 25, NULL),
-(27, 20, 21, NULL),
-(28, 20, 22, NULL),
-(29, 20, 24, NULL);
+INSERT INTO `employes_formations` (`id`, `employe_id`, `formation_id`, `done`, `Remarque`, `piece_id`) VALUES
+(16, 16, 21, '2012-11-11 10:10:00', '', NULL),
+(17, 16, 22, '2012-11-11 10:10:00', '', NULL),
+(18, 17, 21, '2018-09-09 11:11:00', '', NULL),
+(19, 17, 22, '2013-11-12 10:10:00', '', NULL),
+(21, 16, 24, '2017-09-25 08:09:00', '', NULL),
+(22, 17, 24, NULL, '', NULL),
+(24, 16, 25, NULL, '', NULL),
+(25, 17, 25, NULL, '', NULL),
+(27, 20, 21, NULL, '', NULL),
+(28, 20, 22, NULL, '', NULL),
+(29, 20, 24, NULL, '', NULL);
 
 -- --------------------------------------------------------
 
@@ -159,7 +163,7 @@ INSERT INTO `employes_formations` (`id`, `employe_id`, `formation_id`, `done`) V
 -- Structure de la table `formations`
 --
 
-CREATE TABLE IF NOT EXISTS `formations` (
+CREATE TABLE `formations` (
   `id` int(11) NOT NULL,
   `numero` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `Titre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -171,10 +175,10 @@ CREATE TABLE IF NOT EXISTS `formations` (
   `Remarques` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `satus_id` int(11) NOT NULL,
   `categorie_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Contenu de la table `formations`
+-- Déchargement des données de la table `formations`
 --
 
 INSERT INTO `formations` (`id`, `numero`, `Titre`, `poste_id`, `frequence_id`, `Debut_rappel_id`, `modalite_id`, `Duree`, `Remarques`, `satus_id`, `categorie_id`) VALUES
@@ -189,13 +193,13 @@ INSERT INTO `formations` (`id`, `numero`, `Titre`, `poste_id`, `frequence_id`, `
 -- Structure de la table `formations_postes`
 --
 
-CREATE TABLE IF NOT EXISTS `formations_postes` (
+CREATE TABLE `formations_postes` (
   `poste_id` int(11) NOT NULL,
   `formation_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `formations_postes`
+-- Déchargement des données de la table `formations_postes`
 --
 
 INSERT INTO `formations_postes` (`poste_id`, `formation_id`) VALUES
@@ -212,13 +216,13 @@ INSERT INTO `formations_postes` (`poste_id`, `formation_id`) VALUES
 -- Structure de la table `frequences`
 --
 
-CREATE TABLE IF NOT EXISTS `frequences` (
-  `id` int(10) unsigned NOT NULL,
+CREATE TABLE `frequences` (
+  `id` int(10) UNSIGNED NOT NULL,
   `nom` varchar(255) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `frequences`
+-- Déchargement des données de la table `frequences`
 --
 
 INSERT INTO `frequences` (`id`, `nom`) VALUES
@@ -240,13 +244,13 @@ INSERT INTO `frequences` (`id`, `nom`) VALUES
 -- Structure de la table `immeubles`
 --
 
-CREATE TABLE IF NOT EXISTS `immeubles` (
+CREATE TABLE `immeubles` (
   `id` int(11) NOT NULL,
   `address` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `immeubles`
+-- Déchargement des données de la table `immeubles`
 --
 
 INSERT INTO `immeubles` (`id`, `address`) VALUES
@@ -260,13 +264,13 @@ INSERT INTO `immeubles` (`id`, `address`) VALUES
 -- Structure de la table `langues`
 --
 
-CREATE TABLE IF NOT EXISTS `langues` (
+CREATE TABLE `langues` (
   `id` int(11) NOT NULL,
   `nom` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `langues`
+-- Déchargement des données de la table `langues`
 --
 
 INSERT INTO `langues` (`id`, `nom`) VALUES
@@ -279,13 +283,13 @@ INSERT INTO `langues` (`id`, `nom`) VALUES
 -- Structure de la table `modalites`
 --
 
-CREATE TABLE IF NOT EXISTS `modalites` (
-  `id` int(10) unsigned NOT NULL,
+CREATE TABLE `modalites` (
+  `id` int(10) UNSIGNED NOT NULL,
   `nom` varchar(255) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `modalites`
+-- Déchargement des données de la table `modalites`
 --
 
 INSERT INTO `modalites` (`id`, `nom`) VALUES
@@ -296,16 +300,29 @@ INSERT INTO `modalites` (`id`, `nom`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `pieces`
+--
+
+CREATE TABLE `pieces` (
+  `id` int(11) NOT NULL,
+  `fichier` varchar(150) NOT NULL,
+  `created` datetime NOT NULL,
+  `remarque` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `postes`
 --
 
-CREATE TABLE IF NOT EXISTS `postes` (
+CREATE TABLE `postes` (
   `id` int(11) NOT NULL,
   `titre` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `postes`
+-- Déchargement des données de la table `postes`
 --
 
 INSERT INTO `postes` (`id`, `titre`) VALUES
@@ -315,11 +332,11 @@ INSERT INTO `postes` (`id`, `titre`) VALUES
 (4, 'Coordonnatrice contrôle des projets\r\n'),
 (5, 'Gestionnaire support technique\r\n'),
 (6, 'Etudiant / Stagiaire (Tech)\r\n'),
-(7, 'Coordonateur service à l''immeuble\r\n'),
+(7, 'Coordonateur service à l\'immeuble\r\n'),
 (8, 'Coordonnateur santé sécurité\r\n'),
 (9, 'Adjointe administrative\r\n'),
 (10, 'Gestionnaire de projet\r\n'),
-(11, 'Gestionnaire d''équipe de projet\r\n');
+(11, 'Gestionnaire d\'équipe de projet\r\n');
 
 -- --------------------------------------------------------
 
@@ -327,13 +344,13 @@ INSERT INTO `postes` (`id`, `titre`) VALUES
 -- Structure de la table `roles`
 --
 
-CREATE TABLE IF NOT EXISTS `roles` (
+CREATE TABLE `roles` (
   `id` int(11) NOT NULL,
   `role` varchar(20) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `roles`
+-- Déchargement des données de la table `roles`
 --
 
 INSERT INTO `roles` (`id`, `role`) VALUES
@@ -346,13 +363,13 @@ INSERT INTO `roles` (`id`, `role`) VALUES
 -- Structure de la table `statuss`
 --
 
-CREATE TABLE IF NOT EXISTS `statuss` (
+CREATE TABLE `statuss` (
   `id` int(11) NOT NULL,
   `status` varchar(30) CHARACTER SET latin1 NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Contenu de la table `statuss`
+-- Déchargement des données de la table `statuss`
 --
 
 INSERT INTO `statuss` (`id`, `status`) VALUES
@@ -365,7 +382,7 @@ INSERT INTO `statuss` (`id`, `status`) VALUES
 -- Structure de la table `users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -374,10 +391,10 @@ CREATE TABLE IF NOT EXISTS `users` (
   `role_id` int(1) NOT NULL,
   `created` datetime DEFAULT CURRENT_TIMESTAMP,
   `modified` datetime DEFAULT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `users`
+-- Déchargement des données de la table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `nom`, `email`, `role_id`, `created`, `modified`) VALUES
@@ -386,7 +403,7 @@ INSERT INTO `users` (`id`, `username`, `password`, `nom`, `email`, `role_id`, `c
 (7, 'coor', '$2y$10$/OLTv7LDGBlaMMueWxg91Ofc0ns7TotL3eCIobV7VC4bgbiD9D0Ii', 'coordonateur', 'coord@hotmail.com', 2, '2017-09-20 18:33:04', '2017-09-20 18:33:04');
 
 --
--- Index pour les tables exportées
+-- Index pour les tables déchargées
 --
 
 --
@@ -420,7 +437,8 @@ ALTER TABLE `employes`
 ALTER TABLE `employes_formations`
   ADD PRIMARY KEY (`id`),
   ADD KEY `employes_formations_ibfk_1` (`employe_id`),
-  ADD KEY `employes_formations_ibfk_2` (`formation_id`);
+  ADD KEY `employes_formations_ibfk_2` (`formation_id`),
+  ADD KEY `piece_id` (`piece_id`);
 
 --
 -- Index pour la table `formations`
@@ -464,6 +482,12 @@ ALTER TABLE `modalites`
   ADD UNIQUE KEY `nom` (`nom`);
 
 --
+-- Index pour la table `pieces`
+--
+ALTER TABLE `pieces`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `postes`
 --
 ALTER TABLE `postes`
@@ -491,71 +515,76 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT pour les tables exportées
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
 -- AUTO_INCREMENT pour la table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT pour la table `civilites`
 --
 ALTER TABLE `civilites`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `employes`
 --
 ALTER TABLE `employes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT pour la table `employes_formations`
 --
 ALTER TABLE `employes_formations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT pour la table `formations`
 --
 ALTER TABLE `formations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT pour la table `frequences`
 --
 ALTER TABLE `frequences`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT pour la table `immeubles`
 --
 ALTER TABLE `immeubles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `langues`
 --
 ALTER TABLE `langues`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `modalites`
 --
 ALTER TABLE `modalites`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT pour la table `pieces`
+--
+ALTER TABLE `pieces`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `postes`
 --
 ALTER TABLE `postes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT pour la table `statuss`
 --
 ALTER TABLE `statuss`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
--- Contraintes pour les tables exportées
+-- Contraintes pour les tables déchargées
 --
 
 --
@@ -563,7 +592,8 @@ ALTER TABLE `users`
 --
 ALTER TABLE `employes_formations`
   ADD CONSTRAINT `employes_formations_ibfk_1` FOREIGN KEY (`employe_id`) REFERENCES `employes` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `employes_formations_ibfk_2` FOREIGN KEY (`formation_id`) REFERENCES `formations` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `employes_formations_ibfk_2` FOREIGN KEY (`formation_id`) REFERENCES `formations` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `employes_formations_ibfk_3` FOREIGN KEY (`piece_id`) REFERENCES `pieces` (`id`);
 
 --
 -- Contraintes pour la table `formations`
@@ -578,6 +608,7 @@ ALTER TABLE `formations`
 ALTER TABLE `formations_postes`
   ADD CONSTRAINT `formations_postes_ibfk_1` FOREIGN KEY (`poste_id`) REFERENCES `postes` (`id`),
   ADD CONSTRAINT `formations_postes_ibfk_2` FOREIGN KEY (`formation_id`) REFERENCES `formations` (`id`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
