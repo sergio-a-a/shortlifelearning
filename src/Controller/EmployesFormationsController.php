@@ -148,9 +148,30 @@ class EmployesFormationsController extends AppController
         reset($employes);
         $employe_id = key($employes);
         
-        $employesformations = $this->EmployesFormations->find('list', [
+        /*$employesformations = $this->EmployesFormations->find('all', [
             'conditions' => ['EmployesFormations.employe_id' => $employe_id],
-        ]);
+            'valueField' => 'formation_id'
+        ]);*/
+        
+        $this->loadModel('Formations');
+        /*$employesformations = $this->Formations->find('all');
+        
+        $employesformations->select(['Formation' => 'formations.titre'])
+                ->join('Employes_Formations')
+                ->where(['Employes_Formations.employe_id' => $employe_id, 'Employes_Formations.formation_id' => 'Formations.id']);*/
+               
+        $employesformations = $this->Formations->find('list')
+                    ->select(['titre','id'])
+                    
+                    ->hydrate(false)
+                    ->join([
+                        'table' => 'Employes_Formations',
+                        'type' => 'Inner',
+                        'conditions' => 'Formations.id = Employes_Formations.formation_id',
+                    ])
+                    ->where(['Employes_Formations.employe_id' => $employe_id]);
+        
+        //debug($employesformations);
         
         /*$employesformations = $employesformations->toArray();
         reset($employesformations);
@@ -165,7 +186,7 @@ class EmployesFormationsController extends AppController
         
         
         
-        $formations = $this->EmployesFormations->Formations->find('list', ['limit' => 200]);
+        //$formations = $this->EmployesFormations->Formations->find('list', ['limit' => 200]);
         $this->set(compact('employesformations','employesFormation', 'employes', 'formations'));
         $this->set('_serialize', ['employesFormation']);
     }

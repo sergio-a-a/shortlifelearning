@@ -24,7 +24,7 @@ echo $this->Html->script('maj/maj', ['block' => 'scriptBottom']);
         <legend><?= __('Add Employes Formation') ?></legend>
         <?php
             echo $this->Form->control('employe_id', ['options' => $employes]);
-            echo $this->Form->control('formation_id', ['options' => $formations]);
+            echo $this->Form->control('formation_id', ['options' => $employesformations]);
             echo $this->Form->control('done', ['empty' => true]);
             echo $this->Form->control('Remarque');
             echo $this->Form->control('piece_id');

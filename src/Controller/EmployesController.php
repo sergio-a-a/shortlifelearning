@@ -79,8 +79,8 @@ class EmployesController extends AppController
         if ($this->request->is('post')) {
             $employe = $this->Employes->patchEntity($employe, $this->request->getData());
             if ($this->Employes->save($employe)) {
-                
-                $select = $this->Employes->find()
+                //enlever list si fonctionne pas
+                $select = $this->Employes->find('list')
                     ->select([ 'id', 'Formations_Postes.formation_id'])
                     ->hydrate(false)
                     ->join([
