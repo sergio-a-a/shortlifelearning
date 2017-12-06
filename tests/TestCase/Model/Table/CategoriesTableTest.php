@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\EmployesTable;
+use App\Model\Table\CategoriesTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\EmployesTable Test Case
+ * App\Model\Table\CategoriesTable Test Case
  */
-class EmployesTableTest extends TestCase
+class CategoriesTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\EmployesTable
+     * @var \App\Model\Table\CategoriesTable
      */
-    public $Employes;
+    public $Categories;
 
     /**
      * Fixtures
@@ -24,19 +24,20 @@ class EmployesTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
+        'app.categories',
+        'app.formations',
+        'app.postes',
         'app.employes',
         'app.civilites',
         'app.langues',
         'app.immeubles',
-        'app.postes',
-        'app.formations',
+        'app.employes_formations',
+        'app.pieces',
         'app.formations_postes',
         'app.frequences',
+        'app.debut_rappels',
         'app.modalites',
-        'app.statuss',
-        'app.categories',
-        'app.employes_formations',
-        'app.pieces'
+        'app.statuss'
     ];
 
     /**
@@ -47,8 +48,8 @@ class EmployesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Employes') ? [] : ['className' => EmployesTable::class];
-        $this->Employes = TableRegistry::get('Employes', $config);
+        $config = TableRegistry::exists('Categories') ? [] : ['className' => CategoriesTable::class];
+        $this->Categories = TableRegistry::get('Categories', $config);
     }
 
     /**
@@ -58,7 +59,7 @@ class EmployesTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Employes);
+        unset($this->Categories);
 
         parent::tearDown();
     }
@@ -68,30 +69,28 @@ class EmployesTableTest extends TestCase
      *
      * @return void
      */
-//    public function testInitialize()
-//    {
-//        $this->markTestIncomplete('Not implemented yet.');
-//    }
+    public function testInitialize()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
 
     /**
      * Test validationDefault method
      *
      * @return void
      */
-//    public function testValidationDefault()
-//    {
-//        $this->markTestIncomplete('Not implemented yet.');
-//    }
+    public function testValidationDefault()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
 
     /**
      * Test buildRules method
      *
      * @return void
      */
-//    public function testBuildRules()
-//    {
-//        $this->markTestIncomplete('Not implemented yet.');
-//    }
-    
-    
+    public function testBuildRules()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
 }

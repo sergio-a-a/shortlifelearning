@@ -72,11 +72,10 @@ class FormationsController extends AppController
                 
                 $this->loadModel();
                 
-
-                $query = $articles->query()
-                    ->insert(['title', 'body', 'published'])
-                    ->values($select)
-                    ->execute();
+//                $query = $articles->query()
+//                    ->insert(['title', 'body', 'published'])
+//                    ->values($select)
+//                    ->execute();
                 $this->Flash->success(__('The formation has been saved.'));
 
                 

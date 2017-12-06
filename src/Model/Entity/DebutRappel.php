@@ -8,6 +8,8 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $nom
+ *
+ * @property \App\Model\Entity\Formation[] $formations
  */
 class DebutRappel extends Entity
 {
@@ -22,7 +24,7 @@ class DebutRappel extends Entity
      * @var array
      */
     protected $_accessible = [
-        '*' => true,
-        'id' => false
+        'nom' => true,
+        'formations' => true
     ];
 }

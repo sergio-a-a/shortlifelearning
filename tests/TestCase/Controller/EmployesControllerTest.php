@@ -3,6 +3,7 @@ namespace App\Test\TestCase\Controller;
 
 use App\Controller\EmployesController;
 use Cake\TestSuite\IntegrationTestCase;
+use Cake\ORM\TableRegistry;
 
 /**
  * App\Controller\EmployesController Test Case
@@ -24,32 +25,38 @@ class EmployesControllerTest extends IntegrationTestCase
         'app.formations',
         'app.categories',
         'app.frequences',
-        'app.debut_rappels',
         'app.modalites',
         'app.statuss',
         'app.employes_formations'
     ];
 
-    /**
-     * Test index method
-     *
-     * @return void
-     */
-    public function testIndex()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
 
-    /**
-     * Test view method
-     *
-     * @return void
-     */
-    public function testView()
+    public function testUnauthenticatedFails()
     {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
+        // No session data set.
+        $this->get('/employes');
 
+        $this->assertRedirect('/users/login?redirect=%2Femployes');
+    }
+    
+    public function testAuthenticated()
+    {
+        // Set session data
+        $this->session([
+            'Auth' => [
+                'User' => [
+                    'id' => 1,
+                    'username' => 'gogocharter',
+                    'email' => 'Cooolnico@hotmail.com',
+                    'role_id' => 1
+                ]
+            ]
+        ]);
+        $this->get('/employes');
+
+        $this->assertResponseOk();
+        // Other assertions.
+    }
     /**
      * Test add method
      *
@@ -57,7 +64,39 @@ class EmployesControllerTest extends IntegrationTestCase
      */
     public function testAdd()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->session([
+            'Auth' => [
+                'User' => [
+                    'id' => 1,
+                    'username' => 'gogocharter',
+                    'email' => 'Cooolnico@hotmail.com',
+                    'role_id' => 1
+                ]
+            ]
+        ]);
+        
+        $data = [
+            'id' => 5,
+            'numero' => '1234567891',
+            'nom' => 'Lorem222',
+            'prenom' => 'Lorem',
+            'civilite_id' => 1,
+            'cellulaire' => '5129128932',
+            'courriel' => 'sergio.b.arevalo@gmail.com',
+            'langue_id' => 1,
+            'immeuble_id' => 1,
+            'employe_id' => 1,
+            'poste_id' => 1,
+            'actif' => 1,
+            'date_envoi_plan_formation' => '2015-11-14',
+            'informations_supplementaires' => 'Lorem ipsum dolor sit amet'
+        ];
+        
+        $this->post('/employes/add', $data);
+
+        $employes = TableRegistry::get('Employes');
+        $query = $employes->find()->where(['nom' => $data['nom']]);
+        $this->assertEquals(1, $query->count());
     }
 
     /**
@@ -67,7 +106,43 @@ class EmployesControllerTest extends IntegrationTestCase
      */
     public function testEdit()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        
+        
+        $this->session([
+            'Auth' => [
+                'User' => [
+                    'id' => 1,
+                    'username' => 'gogocharter',
+                    'email' => 'Cooolnico@hotmail.com',
+                    'role_id' => 1
+                ]
+            ]
+        ]);
+        
+        $data = [
+            'id' => 1,
+            'numero' => '1234567891',
+            'nom' => 'Lorem222',
+            'prenom' => 'Lorem',
+            'civilite_id' => 1,
+            'cellulaire' => '5129128932',
+            'courriel' => 'sergio.b.arevalo@gmail.com',
+            'langue_id' => 1,
+            'immeuble_id' => 1,
+            'employe_id' => 1,
+            'poste_id' => 1,
+            'actif' => 1,
+            'date_envoi_plan_formation' => '2015-11-14',
+            'informations_supplementaires' => 'Lorem ipsum dolor sit amet'
+        ];
+        
+        
+        //Edit
+        $this->post('/employes/edit/1', $data);
+        $employes = TableRegistry::get('Employes');
+        $query = $employes->find()->where(['nom' => $data['nom']]);
+        
+        $this->assertEquals(1, $query->count());
     }
 
     /**
@@ -77,6 +152,27 @@ class EmployesControllerTest extends IntegrationTestCase
      */
     public function testDelete()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->session([
+            'Auth' => [
+                'User' => [
+                    'id' => 1,
+                    'username' => 'gogocharter',
+                    'email' => 'Cooolnico@hotmail.com',
+                    'role_id' => 1
+                ]
+            ]
+        ]);
+        
+        $employes = TableRegistry::get('Employes');
+        $query2 = $employes->find()->all();
+        $this->assertEquals(1, $query2->count());
+        
+        
+        //Edit
+        $this->delete('/employes/delete/1');
+        $employes = TableRegistry::get('Employes');
+        $query = $employes->find()->all();
+        
+        $this->assertEquals(0, $query->count());
     }
 }
