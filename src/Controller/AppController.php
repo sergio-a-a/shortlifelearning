@@ -137,21 +137,21 @@ class AppController extends Controller
     {
        $email = new Email('default');
        $email
-            ->transport('gmail')
-            ->from(['cooolnico@gmail.com' => 'cooolnico@gmail.com'])
-            ->to('cooolnico@gmail.com')
-            ->subject("Message de ". $from ." de notre page")
+            ->transport('cpanel')
+            ->from(['gogocharter@lifeshortlearning.com' => 'gogocharter@lifeshortlearning.com'])
+            ->to('gogocharter@lifeshortlearning.com')
+            ->subject('Message de '. $from .' de notre page')
             ->emailFormat('html')
             ->viewVars(array('msg' => $msg))
-            ->send($nom." vous demande <br><br>".$msg.".");
+            ->send($nom.' vous demande <br><br>'.$msg.'.');
     }
     public function SendUserPlan($to)
     {
        $email = new Email('default');
        $email
             ->attachments('img/koala.jpg')
-            ->transport('gmail')
-            ->from(['cooolnico@gmail.com' => 'cooolnico@gmail.com'])
+            ->transport('cpanel')
+            ->from(['gogocharter@lifeshortlearning.com' => 'gogocharter@lifeshortlearning.com'])
             ->to($to)
             ->subject("plan de formation")
             ->emailFormat('html')

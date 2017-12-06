@@ -207,8 +207,8 @@ return [
          'gmail'=> [
           'host' => 'ssl://smtp.gmail.com',
           'port' => 465,
-          'username' => 'cooolnico@gmail.com',  //your gmail address
-          'password' => 'pehbhlorlyqjammn',        //your gmail password
+          'username' => 'sergio.b.amaya@gmail.com',
+          'password' => 'vdqdkhalvugeneyl',
           'secure' => 'ssl',
           'className' => 'Smtp',
           'log' => true,
@@ -224,8 +224,15 @@ return [
             'host' => 'ssl://smtp.gmail.com',
             'port' => '465',
             'username' => 'sergio.b.amaya@gmail.com',
-            'password' => 'zhdvomakzboihfei',
+            'password' => 'vdqdkhalvugeneyl',
             'className' => 'Smtp'
+        ],
+        'cpanel' => [
+            'host' => 'mail.lifeshortlearning.com',
+            'port' => 26,
+            'username' => 'gogocharter@lifeshortlearning.com',
+            'password' => 'EZraton$$',
+            'className' => 'Smtp',
         ],
     ],
     /**
