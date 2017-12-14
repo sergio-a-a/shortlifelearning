@@ -25,7 +25,7 @@ echo $this->Html->script('employes/maj', ['block' => 'scriptBottom']);
         <?php
             echo $this->Form->input('employe_id', ['options' => $employes]);
             echo $this->Form->input('formation_id', ['options' => $employesformations]);
-            //echo $this->Form->control('done', ['empty' => true]);
+            echo $this->Form->control('done', ['empty' => true]);
             echo $this->Form->control('Remarque');
             
             echo $this->Form->input('file', ['type' => 'file']);

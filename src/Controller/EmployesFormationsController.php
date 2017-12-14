@@ -137,26 +137,24 @@ class EmployesFormationsController extends AppController
         ]);*/
         if ($this->request->is(['patch', 'post', 'put'])) {
             $employesFormation = $this->EmployesFormations->patchEntity($employesFormation, $this->request->getData());
-            $last = null;
-            $this->Flash->error($this->request->data['file']['name']);
+            
             if (!empty($this->request->data['file']['name'])) {
                 $fileName = $this->request->data['file']['name'];
                 $uploadPath = '';
                 $uploadFile = $fileName;
                 if (move_uploaded_file($this->request->data['file']['tmp_name'], 'pieces_jointe/' . $uploadFile)) {
                     $uploadData = $this->Pieces->newEntity();
-                    $uploadData->fichier = $uploadPath ;
+                    $uploadData->fichier = $fileName ;
                     $uploadData->remarque = $this->request->data['Remarque_Piece'];
                     if ($this->Pieces->save($uploadData)) {
                         $this->Flash->success(__('File has been uploaded and inserted successfully.'));
-                        $last = $this->Pieces->findById($this->Pieces->id);
+                        $last = $uploadData->id;
                         
-                        $this->Flash->error("id: " + $last);
                         $employesFormation->piece_id = $last;
                         if ($this->EmployesFormations->save($employesFormation)) {
                             $this->Flash->success(__('The employes formation has been saved.'));
 
-                            //return $this->redirect(['action' => 'index']);
+                            return $this->redirect(['action' => 'index']);
                         } else {
                             $this->Flash->error(__('The employes formation could not be saved. Please, try again.'));    
                         }
