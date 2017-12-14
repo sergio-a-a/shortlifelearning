@@ -39,7 +39,7 @@ class PiecesTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
-
+        
         $this->hasMany('EmployesFormations', [
             'foreignKey' => 'piece_id'
         ]);

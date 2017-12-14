@@ -40,6 +40,7 @@ class AppController extends Controller
      */
     public function initialize()
     {
+       // $this->viewBuilder()->layout('frontend');
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Auth', [
@@ -69,6 +70,12 @@ class AppController extends Controller
     
     public function beforeFilter(Event $event)
     {
+        if (!array_key_exists('_serialize', $this->viewVars) &&
+            in_array($this->response->type(), ['application/json', 'application/xml'])
+        ) {
+            $this->set('_serialize', true);
+        }
+        
         $this->Auth->allow('display');
     }
     /*public function beforeFilter(Event $event)

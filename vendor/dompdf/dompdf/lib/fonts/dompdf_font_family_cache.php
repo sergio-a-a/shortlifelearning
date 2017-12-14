@@ -78,7 +78,7 @@
     'normal' => $fontDir . '\DejaVuSerif',
   ),
   'cakefont' => array(
-    'normal' => $fontDir . '\a3642af5bbbd4296eb8fb65404d21fb6',
+    'normal' => $fontDir . '\0863fd19a0bd09eb0ab25e76e4421885',
   ),
   'raleway' => array(
     'italic' => $fontDir . '\2cb9d53cb17d8e05aeaad267de0492c6',

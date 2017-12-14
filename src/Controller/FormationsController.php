@@ -13,6 +13,25 @@ use App\Controller\AppController;
 class FormationsController extends AppController
 {
 
+    public function getByEmploye(){
+        
+        $employe_id = $this->request->query('employeId');
+        
+        $employesformations = $this->Formations->find('all')
+                    ->select(['titre','id'])
+                    
+                    ->hydrate(false)
+                    ->join([
+                        'table' => 'Employes_Formations',
+                        'type' => 'Inner',
+                        'conditions' => 'Formations.id = Employes_Formations.formation_id',
+                    ])
+                    ->where(['Employes_Formations.employe_id' => $employe_id]);
+        $this->set('employesformations',$employesformations);
+    }
+
+
+    
     /**
      * Index method
      *

@@ -1,11 +1,11 @@
 <?php
 $urlToLinkedListFilter = $this->Url->build([
-    "controller" => "EmployesFormations",
-    "action" => "getByEmployes",
+    "controller" => "formations",
+    "action" => "getByEmploye",
     "_ext" => "json"
         ]);
 echo $this->Html->scriptBlock('var urlToLinkedListFilter = "' . $urlToLinkedListFilter . '";', ['block' => true]);
-echo $this->Html->script('maj/maj', ['block' => 'scriptBottom']);
+echo $this->Html->script('employes/maj', ['block' => 'scriptBottom']);
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
@@ -19,15 +19,17 @@ echo $this->Html->script('maj/maj', ['block' => 'scriptBottom']);
     </ul>
 </nav>
 <div class="employesFormations form large-9 medium-8 columns content">
-    <?= $this->Form->create($employesFormation) ?>
+    <?= $this->Form->create($employesFormation, ['type' => 'file']) ?>
     <fieldset>
         <legend><?= __('Add Employes Formation') ?></legend>
         <?php
-            echo $this->Form->control('employe_id', ['options' => $employes]);
-            echo $this->Form->control('formation_id', ['options' => $employesformations]);
-            echo $this->Form->control('done', ['empty' => true]);
+            echo $this->Form->input('employe_id', ['options' => $employes]);
+            echo $this->Form->input('formation_id', ['options' => $employesformations]);
+            //echo $this->Form->control('done', ['empty' => true]);
             echo $this->Form->control('Remarque');
-            echo $this->Form->control('piece_id');
+            
+            echo $this->Form->input('file', ['type' => 'file']);
+            echo $this->Form->control('Remarque_Piece', ['label' => 'Remarque Pièce Jointe']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

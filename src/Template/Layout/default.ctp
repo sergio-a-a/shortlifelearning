@@ -19,29 +19,23 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <html>
 <head>
     
-    <?= $this->Html->meta('icon') ?>
-
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('cake.css') ?>
-
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
     <?php
     echo $this->Html->charset();
-    echo $this->Html->css(
-        'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'
+    echo $this->Html->css(['base.css',
+        'cake.css',
+        'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css']
     );
 
     echo $this->Html->script([
         'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js',
-        'https://code.jquery.com/ui/1.12.1/jquery-ui.js',
-        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js']
+        'https://code.jquery.com/ui/1.12.1/jquery-ui.js']
         ,['block' =>'scriptLibraries']
     );
     ?>
     
-    <?= $this->Html->charset() ?>
+    
+    <?= $this->Html->meta('icon') ?>
+        <?= $this->fetch('meta') ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         <?= $cakeDescription ?>:
@@ -89,6 +83,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= $this->fetch('content') ?>
     </div>
     <footer>
+        
+        <?= $this->fetch('css') ?>
+        <?= $this->fetch('scriptLibraries') ?>
+        <?= $this->fetch('script'); ?>
+        <?= $this->fetch('scriptBottom') ?> 
+
     </footer>
 </body>
 </html>

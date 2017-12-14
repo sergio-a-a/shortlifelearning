@@ -128,18 +128,45 @@ class EmployesFormationsController extends AppController
     
     public function maj()
     {
+        
         $employesFormation = $this->EmployesFormations->newEntity();
+        $this->loadModel('Pieces');
+        
         /*$employesFormation = $this->EmployesFormations->get($id, [
             'contain' => []
         ]);*/
         if ($this->request->is(['patch', 'post', 'put'])) {
             $employesFormation = $this->EmployesFormations->patchEntity($employesFormation, $this->request->getData());
-            if ($this->EmployesFormations->save($employesFormation)) {
-                $this->Flash->success(__('The employes formation has been saved.'));
+            $last = null;
+            $this->Flash->error($this->request->data['file']['name']);
+            if (!empty($this->request->data['file']['name'])) {
+                $fileName = $this->request->data['file']['name'];
+                $uploadPath = '';
+                $uploadFile = $fileName;
+                if (move_uploaded_file($this->request->data['file']['tmp_name'], 'pieces_jointe/' . $uploadFile)) {
+                    $uploadData = $this->Pieces->newEntity();
+                    $uploadData->fichier = $uploadPath ;
+                    $uploadData->remarque = $this->request->data['Remarque_Piece'];
+                    if ($this->Pieces->save($uploadData)) {
+                        $this->Flash->success(__('File has been uploaded and inserted successfully.'));
+                        $last = $this->Pieces->findById($this->Pieces->id);
+                        
+                        $this->Flash->error("id: " + $last);
+                        $employesFormation->piece_id = $last;
+                        if ($this->EmployesFormations->save($employesFormation)) {
+                            $this->Flash->success(__('The employes formation has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                            //return $this->redirect(['action' => 'index']);
+                        } else {
+                            $this->Flash->error(__('The employes formation could not be saved. Please, try again.'));    
+                        }
+                    } else {
+                        $this->Flash->error(__('Unable to save file, please try again.'));
+                    }
+                } else {
+                    $this->Flash->error(__('Unable to upload file to server, please try again.'));
+                }                
             }
-            $this->Flash->error(__('The employes formation could not be saved. Please, try again.'));
         }
         
         $employes = $this->EmployesFormations->Employes->find('list', ['limit' => 200]);
@@ -180,14 +207,9 @@ class EmployesFormationsController extends AppController
         $vehicules = $this->Booking->Vehicules->find('list', [
             'conditions' => ['vehicules.model_id' => $model_id],
         ]);*/
-        
-        
-        
-        
-        
-        
+
         //$formations = $this->EmployesFormations->Formations->find('list', ['limit' => 200]);
-        $this->set(compact('employesformations','employesFormation', 'employes', 'formations'));
-        $this->set('_serialize', ['employesFormation']);
+        $this->set(compact('employesformations','employesFormation', 'employes', 'uploadData'));
+        $this->set('_serialize', ['employesFormation', 'uploadData']);
     }
 }
